@@ -1,5 +1,7 @@
 import { PrismaService } from "src/infra/database/prisma.service";
 
+import { Injectable } from "@nestjs/common";
+
 interface CreateUserRequest {
   name: string;
   username: string;
@@ -7,6 +9,7 @@ interface CreateUserRequest {
   password: string;
 }
 
+@Injectable()
 export class CreateUserUseCase {
   constructor(private readonly prisma: PrismaService) {}
 
