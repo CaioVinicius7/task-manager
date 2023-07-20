@@ -1,7 +1,8 @@
-import { PrismaService } from "src/infra/database/prisma.service";
+import { hash } from "bcrypt";
 
 import { Injectable } from "@nestjs/common";
 
+import { PrismaService } from "../../../infra/database/prisma.service";
 import { UserAlreadyExists } from "./errors/user-already-exists";
 
 interface CreateUserRequest {
@@ -33,12 +34,14 @@ export class CreateUserUseCase {
       throw new UserAlreadyExists();
     }
 
+    const passwordHashed = await hash(password, 10);
+
     const createdUser = await this.prisma.user.create({
       data: {
         name,
         username,
         email,
-        password
+        password: passwordHashed
       }
     });
 
