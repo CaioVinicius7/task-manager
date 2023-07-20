@@ -2,6 +2,8 @@ import { PrismaService } from "src/infra/database/prisma.service";
 
 import { Injectable } from "@nestjs/common";
 
+import { UserAlreadyExists } from "./errors/user-already-exists";
+
 interface CreateUserRequest {
   name: string;
   username: string;
@@ -28,7 +30,7 @@ export class CreateUserUseCase {
     });
 
     if (user) {
-      throw new Error("User already exists!");
+      throw new UserAlreadyExists();
     }
 
     const createdUser = await this.prisma.user.create({
