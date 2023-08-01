@@ -2,7 +2,7 @@ import { hash } from "bcrypt";
 
 import { Injectable } from "@nestjs/common";
 
-import { PrismaService } from "../../../infra/database/prisma.service";
+import { UserRepository } from "../repositories/user.repository";
 import { UserAlreadyExists } from "./errors/user-already-exists";
 
 interface CreateUserRequest {
@@ -14,20 +14,12 @@ interface CreateUserRequest {
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async execute({ name, username, email, password }: CreateUserRequest) {
-    const user = await this.prisma.user.findFirst({
-      where: {
-        OR: [
-          {
-            username
-          },
-          {
-            email
-          }
-        ]
-      }
+    const user = await this.userRepository.findByUsernameOrEmail({
+      username,
+      email
     });
 
     if (user) {
@@ -36,13 +28,11 @@ export class CreateUserUseCase {
 
     const passwordHashed = await hash(password, 10);
 
-    const createdUser = await this.prisma.user.create({
-      data: {
-        name,
-        username,
-        email,
-        password: passwordHashed
-      }
+    const createdUser = await this.userRepository.save({
+      name,
+      username,
+      email,
+      password: passwordHashed
     });
 
     return {
