@@ -3,7 +3,8 @@ import { compare } from "bcrypt";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
-import { UserRepository } from "../../../modules/users/repositories/user.repository";
+import { UserRepository } from "@modules/users/repositories/user.repository";
+
 import { InvalidCredentials } from "./errors/invalid-credentials";
 
 export interface SignInRequest {
