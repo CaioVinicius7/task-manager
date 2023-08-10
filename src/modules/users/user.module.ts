@@ -16,6 +16,7 @@ import { UserController } from "./user.controller";
       provide: UserRepository,
       useClass: PrismaUserRepository
     }
-  ]
+  ],
+  exports: [UserRepository]
 })
 export class UserModule {}
