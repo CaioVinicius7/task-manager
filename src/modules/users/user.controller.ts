@@ -1,9 +1,11 @@
+import { Request } from "express";
+
 import {
   Body,
   Controller,
   Get,
   Post,
-  Request,
+  Req,
   UseGuards,
   UsePipes
 } from "@nestjs/common";
@@ -35,7 +37,7 @@ export class UserController {
 
   @Get("/profile")
   @UseGuards(AuthGuard)
-  async getProfile(@Request() request) {
+  async getProfile(@Req() request: Request) {
     return this.getUserProfileUseCase.execute(request.user.sub);
   }
 }
