@@ -1,4 +1,13 @@
-import { Body, Controller, Post, UsePipes } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  UsePipes
+} from "@nestjs/common";
+
+import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { CreateUserValidationPipe } from "./pipes/create-user.validation.pipe";
@@ -17,5 +26,13 @@ export class UserController {
       email,
       password
     });
+  }
+
+  @Get("/profile")
+  @UseGuards(AuthGuard)
+  async profile() {
+    return {
+      message: "Ok"
+    };
   }
 }
