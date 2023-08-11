@@ -16,7 +16,7 @@ export class PrismaUserRepository implements UserRepository {
   async findByUsernameOrEmail({
     username,
     email
-  }: UsernameAndEmail): Promise<CreatedUser> {
+  }: UsernameAndEmail): Promise<CreatedUser | null> {
     const user = await this.prisma.user.findFirst({
       where: {
         OR: [
@@ -37,7 +37,7 @@ export class PrismaUserRepository implements UserRepository {
     username,
     email,
     password
-  }: CreateUserDTO): Promise<CreatedUser> {
+  }: CreateUserDTO): Promise<CreatedUser | null> {
     const createdUser = await this.prisma.user.create({
       data: {
         name,
