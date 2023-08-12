@@ -20,13 +20,19 @@ model User {
   @@map("users")
 }
 
+enum Priority {
+  low
+  medium
+  high
+}
+
 model Task {
   id          String   @id @default(uuid())
   title       String
   description String
   startAt     DateTime
   endAt       DateTime
-  priority    String
+  priority    Priority
   status      String
 
   TaskUser TaskUser[]
