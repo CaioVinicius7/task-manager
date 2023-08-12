@@ -8,13 +8,40 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  username String @unique
-  email    String @unique
-  password String @unique
-
+  id        String   @id @default(uuid())
+  name      String
+  username  String   @unique
+  email     String   @unique
+  password  String   @unique
   createdAt DateTime @default(now())
 
+  TaskUser TaskUser[]
+
   @@map("users")
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  startAt     DateTime
+  endAt       DateTime
+  priority    String
+  status      String
+
+  TaskUser TaskUser[]
+
+  @@map("tasks")
+}
+
+model TaskUser {
+  id        String   @id @default(uuid())
+  taskId    String
+  userId    String
+  createdAt DateTime @default(now())
+
+  task Task @relation(fields: [taskId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("tasks_users")
 }
