@@ -26,6 +26,12 @@ enum Priority {
   high
 }
 
+enum Status {
+  todo
+  doing
+  done
+}
+
 model Task {
   id          String   @id @default(uuid())
   title       String
@@ -33,7 +39,7 @@ model Task {
   startAt     DateTime
   endAt       DateTime
   priority    Priority
-  status      String
+  status      Status
 
   TaskUser TaskUser[]
 
