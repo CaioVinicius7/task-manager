@@ -33,11 +33,11 @@ enum Status {
 }
 
 model Task {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   description String
-  startAt     DateTime
-  endAt       DateTime
+  startAt     DateTime?
+  endAt       DateTime?
   priority    Priority
   status      Status
 
