@@ -1,19 +1,10 @@
 import { Request } from "express";
 
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  UseGuards,
-  UsePipes
-} from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
-import { CreateUserDTO } from "./dto/create-user.dto";
-import { CreateUserValidationPipe } from "./pipes/create-user.validation.pipe";
+import { CreateUserSchemaDTO } from "./schemas/create-user";
 import { CreateUserUseCase } from "./use-cases/create-user";
 import { GetUserProfileUseCase } from "./use-cases/get-profile";
 
@@ -25,8 +16,9 @@ export class UserController {
   ) {}
 
   @Post()
-  @UsePipes(new CreateUserValidationPipe())
-  async create(@Body() { name, username, password, email }: CreateUserDTO) {
+  async create(
+    @Body() { name, username, password, email }: CreateUserSchemaDTO
+  ) {
     return await this.createUserUseCase.execute({
       name,
       username,

@@ -1,6 +1,6 @@
 import { Controller, Body, Post, HttpCode, HttpStatus } from "@nestjs/common";
 
-import { SignInDTO } from "./dto/sign-in.dto";
+import { SignInSchemaDTO } from "./schemas/sign-in";
 import { SignInUseCase } from "./use-cases/sing-in";
 
 @Controller()
@@ -9,7 +9,7 @@ export class AuthenticationController {
 
   @Post("/sign-in")
   @HttpCode(HttpStatus.OK)
-  async signIn(@Body() { username, password }: SignInDTO) {
+  async signIn(@Body() { username, password }: SignInSchemaDTO) {
     return await this.signInUseCase.execute({
       username,
       password
