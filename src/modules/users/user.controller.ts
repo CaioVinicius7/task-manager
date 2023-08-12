@@ -4,7 +4,7 @@ import { Body, Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
-import { CreateUserSchemaDTO } from "./schemas/create-user";
+import { CreateUserResponseSchema, CreateUserDTO } from "./schemas/create-user";
 import { CreateUserUseCase } from "./use-cases/create-user";
 import { GetUserProfileUseCase } from "./use-cases/get-profile";
 
@@ -16,15 +16,19 @@ export class UserController {
   ) {}
 
   @Post()
-  async create(
-    @Body() { name, username, password, email }: CreateUserSchemaDTO
-  ) {
-    return await this.createUserUseCase.execute({
+  async create(@Body() { name, username, password, email }: CreateUserDTO) {
+    const { user } = await this.createUserUseCase.execute({
       name,
       username,
       email,
       password
     });
+
+    const formattedUser = CreateUserResponseSchema.parse(user);
+
+    return {
+      user: formattedUser
+    };
   }
 
   @Get("/profile")
