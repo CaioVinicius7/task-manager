@@ -5,7 +5,7 @@ import { PrismaService } from "@infra/database/prisma.service";
 import type {
   UsernameAndEmail,
   CreatedUser,
-  CreateUserDTO
+  CreateUser
 } from "../../dto/create-user.dto";
 import { UserRepository } from "../user.repository";
 
@@ -37,7 +37,7 @@ export class PrismaUserRepository implements UserRepository {
     username,
     email,
     password
-  }: CreateUserDTO): Promise<CreatedUser | null> {
+  }: CreateUser): Promise<CreatedUser | null> {
     const createdUser = await this.prisma.user.create({
       data: {
         name,
