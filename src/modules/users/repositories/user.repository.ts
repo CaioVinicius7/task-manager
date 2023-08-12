@@ -1,8 +1,5 @@
-import type {
-  CreateUser,
-  CreatedUser,
-  UsernameAndEmail
-} from "../dto/create-user.dto";
+import type { CreateUser, CreatedUser } from "../dto/create-user.dto";
+import type { UsernameAndEmail } from "../dto/find-by-username-or-email.dto";
 
 export abstract class UserRepository {
   abstract findByUsernameOrEmail(

@@ -13,8 +13,3 @@ export interface CreatedUser {
   password: string;
   createdAt: Date;
 }
-
-export interface UsernameAndEmail {
-  username: string;
-  email: string;
-}

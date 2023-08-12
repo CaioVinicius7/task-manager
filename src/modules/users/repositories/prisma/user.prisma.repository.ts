@@ -1,12 +1,9 @@
 import { Injectable } from "@nestjs/common";
 
 import { PrismaService } from "@infra/database/prisma.service";
+import type { UsernameAndEmail } from "@modules/users/dto/find-by-username-or-email.dto";
 
-import type {
-  UsernameAndEmail,
-  CreatedUser,
-  CreateUser
-} from "../../dto/create-user.dto";
+import type { CreatedUser, CreateUser } from "../../dto/create-user.dto";
 import { UserRepository } from "../user.repository";
 
 @Injectable()
