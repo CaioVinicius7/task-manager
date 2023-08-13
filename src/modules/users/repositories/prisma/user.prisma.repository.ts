@@ -66,4 +66,15 @@ export class PrismaUserRepository implements UserRepository {
 
     return user;
   }
+
+  async updateAvatarUrl(id: string, avatarUrl: string): Promise<void> {
+    await this.prisma.user.update({
+      data: {
+        avatarUrl
+      },
+      where: {
+        id
+      }
+    });
+  }
 }

@@ -8,4 +8,5 @@ export abstract class UserRepository {
   abstract save(data: CreateUser): Promise<CreatedUser>;
   abstract findById(id: string): Promise<CreatedUser | null>;
   abstract findByUsername(username: string): Promise<CreatedUser | null>;
+  abstract updateAvatarUrl(id: string, avatarUrl: string): Promise<void>;
 }
