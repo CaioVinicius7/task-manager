@@ -40,6 +40,7 @@ model Task {
   endAt       DateTime?
   priority    Priority
   status      Status
+  createdAt   DateTime  @default(now())
 
   TaskUser TaskUser[]
 
