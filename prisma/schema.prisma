@@ -13,6 +13,7 @@ model User {
   username  String   @unique
   email     String   @unique
   password  String   @unique
+  avatarUrl String?  @unique
   createdAt DateTime @default(now())
 
   TaskUser TaskUser[]
