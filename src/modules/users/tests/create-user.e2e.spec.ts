@@ -14,6 +14,8 @@ import { GetUserProfileUseCase } from "../use-cases/get-user-profile";
 import { UploadUserAvatarUseCase } from "../use-cases/upload-user-avatar";
 import { UserController } from "../user.controller";
 
+jest.mock("@infra/providers/storage/supabase/supabase-storage");
+
 describe("[POST] /users", () => {
   let app: INestApplication;
 
