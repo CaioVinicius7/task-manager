@@ -16,6 +16,7 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateUserResponseSchema, CreateUserDTO } from "./schemas/create-user";
+import { GetProfileResponseSchema } from "./schemas/get-profile";
 import { CreateUserUseCase } from "./use-cases/create-user";
 import { GetUserProfileUseCase } from "./use-cases/get-profile";
 import { UploadUserAvatarUseCase } from "./use-cases/upload-user-avatar";
@@ -49,8 +50,10 @@ export class UserController {
   async getProfile(@Req() request: Request) {
     const { user } = await this.getUserProfileUseCase.execute(request.user.sub);
 
+    const formattedUser = GetProfileResponseSchema.parse(user);
+
     return {
-      user
+      user: formattedUser
     };
   }
 
