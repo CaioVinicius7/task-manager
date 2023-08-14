@@ -11,5 +11,6 @@ export interface CreatedUser {
   username: string;
   email: string;
   password: string;
+  avatarUrl: string | null;
   createdAt: Date;
 }
