@@ -47,7 +47,11 @@ export class UserController {
   @Get("/profile")
   @UseGuards(AuthGuard)
   async getProfile(@Req() request: Request) {
-    return this.getUserProfileUseCase.execute(request.user.sub);
+    const { user } = await this.getUserProfileUseCase.execute(request.user.sub);
+
+    return {
+      user
+    };
   }
 
   @Patch("/avatar")

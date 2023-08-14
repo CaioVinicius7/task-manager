@@ -7,6 +7,10 @@ export class GetUserProfileUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(id: string) {
-    return this.userRepository.findById(id);
+    const user = await this.userRepository.findById(id);
+
+    return {
+      user
+    };
   }
 }
