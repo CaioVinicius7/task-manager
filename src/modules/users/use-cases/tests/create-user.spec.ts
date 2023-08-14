@@ -34,6 +34,7 @@ describe("CreateUserUseCase", () => {
     const { user } = await sut.execute(newUser);
 
     expect(user).toHaveProperty("id");
+    expect(user.avatarUrl).toBeNull();
   });
 
   it("Should not be able to create a new user if username already exists", async () => {
