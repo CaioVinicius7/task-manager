@@ -7,7 +7,7 @@ import { SupabaseStorage } from "@infra/providers/storage/supabase/supabase-stor
 import { PrismaUserRepository } from "./repositories/prisma/user.prisma.repository";
 import { UserRepository } from "./repositories/user.repository";
 import { CreateUserUseCase } from "./use-cases/create-user";
-import { GetUserProfileUseCase } from "./use-cases/get-profile";
+import { GetUserProfileUseCase } from "./use-cases/get-user-profile";
 import { UploadUserAvatarUseCase } from "./use-cases/upload-user-avatar";
 import { UserController } from "./user.controller";
 

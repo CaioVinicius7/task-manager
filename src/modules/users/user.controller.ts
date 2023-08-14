@@ -18,7 +18,7 @@ import { AuthGuard } from "@infra/providers/auth-guard";
 import { CreateUserResponseSchema, CreateUserDTO } from "./schemas/create-user";
 import { GetProfileResponseSchema } from "./schemas/get-profile";
 import { CreateUserUseCase } from "./use-cases/create-user";
-import { GetUserProfileUseCase } from "./use-cases/get-profile";
+import { GetUserProfileUseCase } from "./use-cases/get-user-profile";
 import { UploadUserAvatarUseCase } from "./use-cases/upload-user-avatar";
 
 @Controller("/users")
