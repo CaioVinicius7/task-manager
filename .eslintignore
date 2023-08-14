@@ -1,3 +1,4 @@
 node_modules
 prisma
 jest.config.js
+jest.setup.js
