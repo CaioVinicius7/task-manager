@@ -25,6 +25,14 @@ export class SupabaseStorage implements Storage {
         upsert: true
       });
 
-    return data;
+    const {
+      data: { publicUrl }
+    } = this.client.storage
+      .from(process.env.SUPABASE_AVATAR_BUCKET)
+      .getPublicUrl(data.path);
+
+    return {
+      path: publicUrl
+    };
   }
 }
