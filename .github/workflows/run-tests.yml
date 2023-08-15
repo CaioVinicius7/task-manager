@@ -53,14 +53,13 @@ jobs:
           node-version: 18
           cache: "npm"
 
-      - name: Install dependencies and set .env
-        run: |
-          echo "DATABASE_URL=postgresql://admin:admin@localhost:5433/task_manager_test?schema=public" >> $GITHUB_ENV
-          echo "JWT_SECRET=secret" >> $GITHUB_ENV
-          npm ci
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run migrations
         run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: "postgresql://admin:admin@localhost:5433/task_manager_test?schema=public"
 
       - name: Run Tests
         run: npm run test:e2e
