@@ -3,7 +3,7 @@ import * as request from "supertest";
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 
-import { PrismaService } from "@infra/database/prisma.service";
+import { DatabaseModule } from "@infra/database/database.module";
 import { Storage } from "@infra/providers/storage/storage";
 import { AuthenticationModule } from "@modules/authentication/authentication.module";
 import { UserRepository } from "@modules/users/repositories/user.repository";
@@ -21,13 +21,12 @@ describe("[POST] /users", () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AuthenticationModule],
+      imports: [AuthenticationModule, DatabaseModule],
       controllers: [UserController],
       providers: [
         CreateUserUseCase,
         GetUserProfileUseCase,
         UploadUserAvatarUseCase,
-        PrismaService,
         {
           provide: UserRepository,
           useClass: PrismaUserRepository
