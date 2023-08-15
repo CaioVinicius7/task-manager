@@ -7,7 +7,6 @@ import { DatabaseModule } from "@infra/database/database.module";
 import { ScheduleTaskModule } from "@infra/jobs/schedule.module";
 
 import { AuthenticationModule } from "./modules/authentication/authentication.module";
-import { NotificationModule } from "./modules/notifications/notification.module";
 import { TasksModule } from "./modules/tasks/tasks.module";
 import { UserModule } from "./modules/users/user.module";
 
@@ -15,7 +14,6 @@ import { UserModule } from "./modules/users/user.module";
   imports: [
     DatabaseModule,
     ScheduleTaskModule,
-    NotificationModule,
     TasksModule,
     UserModule,
     AuthenticationModule
