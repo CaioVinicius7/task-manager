@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
+import { endOfDay, startOfDay } from "@utils/date";
 import { PrismaService } from "@infra/database/prisma.service";
 import type {
   CreateTask,
@@ -32,5 +33,18 @@ export class PrismaTaskRepository implements TaskRepository {
     });
 
     return task;
+  }
+
+  async findAllAfterStartDay(): Promise<CreatedTask[]> {
+    const tasks = await this.prisma.task.findMany({
+      where: {
+        startAt: {
+          gte: startOfDay(),
+          lte: endOfDay()
+        }
+      }
+    });
+
+    return tasks;
   }
 }
