@@ -36,12 +36,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+        env:
+          DATABASE_URL: "postgresql://admin:admin@localhost:5433/task_manager_test?schema=public"
+          JWT_SECRET: "secret"
+
       - name: Run migrations
         run: npx prisma migrate deploy
 
       - name: Run Tests
         run: npm run test
-
-        env:
-          DATABASE_URL: "postgresql://admin:admin@localhost:5433/task_manager_test?schema=public"
-          JWT_SECRET: "secret"
