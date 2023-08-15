@@ -9,8 +9,8 @@ export class NotificationTaskUserSchedule {
 
   @Cron(CronExpression.EVERY_10_SECONDS)
   async getAllTasksDay() {
-    const tasks = await this.taskRepository.findAllAfterStartDay();
+    const tasks = await this.taskRepository.findAllTasksStartInTheDay();
 
-    console.log(tasks);
+    console.log(JSON.stringify(tasks, null, 2));
   }
 }
