@@ -3,6 +3,7 @@ import { ZodValidationPipe } from "nestjs-zod";
 import { Module } from "@nestjs/common";
 import { APP_PIPE } from "@nestjs/core";
 
+import { DatabaseModule } from "@infra/database/database.module";
 import { ScheduleTaskModule } from "@infra/jobs/schedule.module";
 
 import { AuthenticationModule } from "./modules/authentication/authentication.module";
@@ -12,6 +13,7 @@ import { UserModule } from "./modules/users/user.module";
 
 @Module({
   imports: [
+    DatabaseModule,
     ScheduleTaskModule,
     NotificationModule,
     TasksModule,

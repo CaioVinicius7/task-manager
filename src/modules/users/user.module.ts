@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common";
 
-import { PrismaService } from "@infra/database/prisma.service";
 import { Storage } from "@infra/providers/storage/storage";
 import { SupabaseStorage } from "@infra/providers/storage/supabase/supabase-storage";
 
@@ -18,7 +17,6 @@ import { UserController } from "./user.controller";
     CreateUserUseCase,
     GetUserProfileUseCase,
     UploadUserAvatarUseCase,
-    PrismaService,
     {
       provide: UserRepository,
       useClass: PrismaUserRepository
