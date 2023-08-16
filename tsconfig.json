@@ -13,7 +13,8 @@
     "paths": {
       "@modules/*": ["./src/modules/*"],
       "@infra/*": ["./src/infra/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@test/*": ["./test/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
