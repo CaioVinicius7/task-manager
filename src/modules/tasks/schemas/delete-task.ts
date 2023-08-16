@@ -2,12 +2,12 @@ import { createZodDto } from "nestjs-zod";
 import { z } from "nestjs-zod/z";
 
 export const deleteTaskSchema = z.object({
-  taskId: z
+  id: z
     .string({
-      required_error: "TaskId is required."
+      required_error: "Id is required."
     })
     .uuid({
-      message: "TaskId should be a valid uuid."
+      message: "Id should be a valid uuid."
     })
 });
 

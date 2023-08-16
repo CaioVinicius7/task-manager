@@ -94,11 +94,11 @@ export class TasksController {
     };
   }
 
-  @Delete("/:taskId")
+  @Delete("/:id")
   @HttpCode(HttpStatus.NO_CONTENT)
-  async delete(@Param() { taskId }: DeleteTaskDTO) {
+  async delete(@Param() { id }: DeleteTaskDTO) {
     return this.deleteTaskUseCase.execute({
-      taskId
+      taskId: id
     });
   }
 }
