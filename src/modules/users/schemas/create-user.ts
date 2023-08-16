@@ -20,7 +20,11 @@ export const CreateUserSchema = z.object({
 
 export class CreateUserDTO extends createZodDto(CreateUserSchema) {}
 
-export const CreateUserResponseSchema = CreateUserSchema.omit({
+export const CreateUserResponseSchema = CreateUserSchema.extend({
+  id: z.string().uuid({
+    message: "Id must be a valid uuid."
+  })
+}).omit({
   password: true
 });
 
