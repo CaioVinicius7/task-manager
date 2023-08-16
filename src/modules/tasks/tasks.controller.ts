@@ -18,9 +18,11 @@ import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateTaskDTO } from "./schemas/create-task";
 import { DeleteTaskDTO } from "./schemas/delete-task";
+import { GetTaskByIdDTO } from "./schemas/get-by-id";
 import { GetTasksByUserIdDTO } from "./schemas/get-tasks-by-user-id";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
+import { GetTasksById } from "./use-cases/get-task-by-id";
 import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
 
 @Controller("/tasks")
@@ -31,7 +33,8 @@ export class TasksController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCase,
     private readonly deleteTaskUseCase: DeleteTaskUseCase,
-    private readonly getTasksByUserId: GetTasksByUserId
+    private readonly getTasksByUserId: GetTasksByUserId,
+    private readonly getTaskById: GetTasksById
   ) {}
 
   @Post()
@@ -66,6 +69,17 @@ export class TasksController {
 
     return {
       tasks
+    };
+  }
+
+  @Get("/:id")
+  async getById(@Param() { id }: GetTaskByIdDTO) {
+    const task = await this.getTaskById.execute({
+      id
+    });
+
+    return {
+      task
     };
   }
 
