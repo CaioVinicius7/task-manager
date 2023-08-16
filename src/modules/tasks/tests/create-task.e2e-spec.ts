@@ -5,6 +5,7 @@ import { Test } from "@nestjs/testing";
 
 import { DatabaseModule } from "@infra/database/database.module";
 import { AuthenticationModule } from "@modules/authentication/authentication.module";
+import { createAndAuthNewUser } from "@test/helpers/create-and-auth-new-user";
 
 import { PrismaTasksUsersRepository } from "../repositories/prisma/tasks-users.prisma.repository";
 import { PrismaTasksRepository } from "../repositories/prisma/tasks.prisma.repository";
@@ -46,21 +47,7 @@ describe("[POST] /tasks", () => {
   });
 
   it("Should be able to create a task", async () => {
-    const newUser = {
-      name: "Caio",
-      username: `Caio-${Math.random() * 10000}`,
-      email: `${Math.random() * 10000}@gmail.com`,
-      password: "@SuperSecret123"
-    };
-
-    await request(app.getHttpServer()).post("/users").send(newUser);
-
-    const {
-      body: { accessToken }
-    } = await request(app.getHttpServer()).post("/sign-in").send({
-      username: newUser.username,
-      password: newUser.password
-    });
+    const { accessToken } = await createAndAuthNewUser(app);
 
     const newTask = {
       title: "New Task",
