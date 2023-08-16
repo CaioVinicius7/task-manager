@@ -5,7 +5,7 @@ import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 
 import { GetTasksByUserId } from "../get-tasks-by-user-id";
 
-describe("GetTasksByUserId", () => {
+describe("GetTasksByUserIdUseCase", () => {
   let sut: GetTasksByUserId;
   let tasksRepository: TasksRepository;
 
