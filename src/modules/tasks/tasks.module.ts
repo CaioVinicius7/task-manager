@@ -7,6 +7,7 @@ import { TasksRepository } from "./repositories/tasks.repository";
 import { TasksController } from "./tasks.controller";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
+import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
 
 @Module({
   imports: [],
@@ -14,6 +15,7 @@ import { DeleteTaskUseCase } from "./use-cases/delete-task";
   providers: [
     CreateTaskUseCase,
     DeleteTaskUseCase,
+    GetTasksByUserId,
     {
       provide: TasksRepository,
       useClass: PrismaTasksRepository
