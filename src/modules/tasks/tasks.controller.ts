@@ -1,16 +1,28 @@
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  UseGuards
+} from "@nestjs/common";
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateTaskDTO } from "./schemas/create-task";
+import { DeleteTaskDTO } from "./schemas/delete-task";
 import { CreateTaskUseCase } from "./use-cases/create-task";
+import { DeleteTaskUseCase } from "./use-cases/delete-task";
 
 @Controller("/tasks")
+@UseGuards(AuthGuard)
 export class TasksController {
-  constructor(private readonly createTaskUseCase: CreateTaskUseCase) {}
+  constructor(
+    private readonly createTaskUseCase: CreateTaskUseCase,
+    private readonly deleteTaskUseCase: DeleteTaskUseCase
+  ) {}
 
   @Post()
-  @UseGuards(AuthGuard)
   async create(
     @Body()
     {
@@ -31,6 +43,13 @@ export class TasksController {
       startAt,
       endAt,
       userId
+    });
+  }
+
+  @Delete("/:taskId")
+  async delete(@Param() { taskId }: DeleteTaskDTO) {
+    return this.deleteTaskUseCase.execute({
+      taskId
     });
   }
 }
