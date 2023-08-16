@@ -38,6 +38,9 @@ const createUserSchemaForSwagger = zodToOpenAPI(CreateUserSchema);
 const createUserResponseSchemaForSwagger = zodToOpenAPI(
   CreateUserResponseSchema
 );
+const GetProfileResponseSchemaForSwagger = zodToOpenAPI(
+  GetProfileResponseSchema
+);
 
 @Controller("/users")
 @ApiTags("Users")
@@ -81,6 +84,11 @@ export class UserController {
 
   @Get("/profile")
   @ApiBearerAuth()
+  @ApiResponse({
+    status: 200,
+    description: "User profile",
+    schema: GetProfileResponseSchemaForSwagger
+  })
   async getProfile(@Req() request: Request) {
     const { user } = await this.getUserProfileUseCase.execute(request.user.sub);
 
