@@ -43,7 +43,7 @@ describe("[POST] /tasks", () => {
     await app.close();
   });
 
-  it("Should be create a task", async () => {
+  it("Should be able to create a task", async () => {
     const newUser = {
       name: "Caio",
       username: `Caio-${Math.random() * 10000}`,
