@@ -6,13 +6,13 @@ import { Test } from "@nestjs/testing";
 import { DatabaseModule } from "@infra/database/database.module";
 import { Storage } from "@infra/providers/storage/storage";
 import { AuthenticationModule } from "@modules/authentication/authentication.module";
-import { UserRepository } from "@modules/users/repositories/user.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
 
-import { PrismaUserRepository } from "../repositories/prisma/user.prisma.repository";
+import { PrismaUsersRepository } from "../repositories/prisma/users.prisma.repository";
 import { CreateUserUseCase } from "../use-cases/create-user";
 import { GetUserProfileUseCase } from "../use-cases/get-user-profile";
 import { UploadUserAvatarUseCase } from "../use-cases/upload-user-avatar";
-import { UserController } from "../user.controller";
+import { UserController } from "../users.controller";
 
 describe("[POST] /users", () => {
   let app: INestApplication;
@@ -26,8 +26,8 @@ describe("[POST] /users", () => {
         GetUserProfileUseCase,
         UploadUserAvatarUseCase,
         {
-          provide: UserRepository,
-          useClass: PrismaUserRepository
+          provide: UsersRepository,
+          useClass: PrismaUsersRepository
         },
         {
           provide: Storage,

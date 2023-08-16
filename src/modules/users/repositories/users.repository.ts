@@ -1,7 +1,7 @@
 import type { CreateUser, CreatedUser } from "../dto/create-user.dto";
 import type { UsernameAndEmail } from "../dto/find-by-username-or-email.dto";
 
-export abstract class UserRepository {
+export abstract class UsersRepository {
   abstract findByUsernameOrEmail(
     data: UsernameAndEmail
   ): Promise<CreatedUser | null>;

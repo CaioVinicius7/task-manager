@@ -1,7 +1,7 @@
 import { Test } from "@nestjs/testing";
 
-import { InMemoryUserRepository } from "@modules/users/repositories/in-memory/user.in-memory.repository";
-import { UserRepository } from "@modules/users/repositories/user.repository";
+import { InMemoryUsersRepository } from "@modules/users/repositories/in-memory/users.in-memory.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
 
 import { CreateUserUseCase } from "../create-user";
 import { UserAlreadyExists } from "../errors/user-already-exists";
@@ -14,8 +14,8 @@ describe("CreateUserUseCase", () => {
       providers: [
         CreateUserUseCase,
         {
-          provide: UserRepository,
-          useClass: InMemoryUserRepository
+          provide: UsersRepository,
+          useClass: InMemoryUsersRepository
         }
       ]
     }).compile();

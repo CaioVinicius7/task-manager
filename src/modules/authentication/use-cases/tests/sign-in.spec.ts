@@ -3,15 +3,15 @@ import { hash } from "bcrypt";
 import { JwtModule } from "@nestjs/jwt";
 import { Test } from "@nestjs/testing";
 
-import { InMemoryUserRepository } from "@modules/users/repositories/in-memory/user.in-memory.repository";
-import { UserRepository } from "@modules/users/repositories/user.repository";
+import { InMemoryUsersRepository } from "@modules/users/repositories/in-memory/users.in-memory.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
 
 import { InvalidCredentials } from "../errors/invalid-credentials";
 import { SignInUseCase } from "../sing-in";
 
 describe("SignInUseCase", () => {
   let sut: SignInUseCase;
-  let usersRepository: UserRepository;
+  let usersRepository: UsersRepository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -27,14 +27,14 @@ describe("SignInUseCase", () => {
       providers: [
         SignInUseCase,
         {
-          provide: UserRepository,
-          useClass: InMemoryUserRepository
+          provide: UsersRepository,
+          useClass: InMemoryUsersRepository
         }
       ]
     }).compile();
 
     sut = moduleRef.get<SignInUseCase>(SignInUseCase);
-    usersRepository = moduleRef.get<UserRepository>(UserRepository);
+    usersRepository = moduleRef.get<UsersRepository>(UsersRepository);
   });
 
   it("Should be able to sign in", async () => {

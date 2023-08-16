@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 
-import { PrismaTaskUserRepository } from "./repositories/prisma/task-user.prisma.repository";
-import { PrismaTaskRepository } from "./repositories/prisma/task.prisma.repository";
-import { TaskUserRepository } from "./repositories/task-user.repository";
-import { TaskRepository } from "./repositories/task.repository";
+import { PrismaTasksUsersRepository } from "./repositories/prisma/tasks-users.prisma.repository";
+import { PrismaTasksRepository } from "./repositories/prisma/tasks.prisma.repository";
+import { TasksUsersRepository } from "./repositories/tasks-users.repository";
+import { TasksRepository } from "./repositories/tasks.repository";
 import { TasksController } from "./tasks.controller";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 
@@ -13,12 +13,12 @@ import { CreateTaskUseCase } from "./use-cases/create-task";
   providers: [
     CreateTaskUseCase,
     {
-      provide: TaskRepository,
-      useClass: PrismaTaskRepository
+      provide: TasksRepository,
+      useClass: PrismaTasksRepository
     },
     {
-      provide: TaskUserRepository,
-      useClass: PrismaTaskUserRepository
+      provide: TasksUsersRepository,
+      useClass: PrismaTasksUsersRepository
     }
   ]
 })

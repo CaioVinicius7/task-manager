@@ -3,7 +3,7 @@ import { compare } from "bcrypt";
 import { Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 
-import { UserRepository } from "@modules/users/repositories/user.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
 
 import { InvalidCredentials } from "./errors/invalid-credentials";
 
@@ -16,7 +16,7 @@ interface SignInRequest {
 export class SignInUseCase {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UsersRepository
   ) {}
 
   async execute({ username, password }: SignInRequest) {

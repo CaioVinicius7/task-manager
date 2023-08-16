@@ -4,10 +4,10 @@ import { PrismaService } from "@infra/database/prisma.service";
 import type { UsernameAndEmail } from "@modules/users/dto/find-by-username-or-email.dto";
 
 import type { CreatedUser, CreateUser } from "../../dto/create-user.dto";
-import { UserRepository } from "../user.repository";
+import { UsersRepository } from "../users.repository";
 
 @Injectable()
-export class PrismaUserRepository implements UserRepository {
+export class PrismaUsersRepository implements UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findByUsernameOrEmail({

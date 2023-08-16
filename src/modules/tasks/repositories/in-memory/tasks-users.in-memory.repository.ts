@@ -1,6 +1,6 @@
-import { TaskUserRepository } from "../task-user.repository";
+import { TasksUsersRepository } from "../tasks-users.repository";
 
-export class InMemoryTaskUserRepository implements TaskUserRepository {
+export class InMemoryTasksUsersRepository implements TasksUsersRepository {
   public tasksUsers = [];
 
   async save(userId: string, taskId: string): Promise<void> {

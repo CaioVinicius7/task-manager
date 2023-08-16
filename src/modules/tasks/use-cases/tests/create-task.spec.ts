@@ -1,33 +1,34 @@
 import { Test } from "@nestjs/testing";
 
-import { InMemoryTaskUserRepository } from "@modules/tasks/repositories/in-memory/task-user.in-memory.repository";
-import { InMemoryTaskRepository } from "@modules/tasks/repositories/in-memory/task.in-memory.repository";
-import { TaskUserRepository } from "@modules/tasks/repositories/task-user.repository";
-import { TaskRepository } from "@modules/tasks/repositories/task.repository";
+import { InMemoryTasksUsersRepository } from "@modules/tasks/repositories/in-memory/tasks-users.in-memory.repository";
+import { InMemoryTaskRepository } from "@modules/tasks/repositories/in-memory/tasks.in-memory.repository";
+import { TasksUsersRepository } from "@modules/tasks/repositories/tasks-users.repository";
+import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 
 import { CreateTaskUseCase } from "../create-task";
 
 describe("CreateTaskUseCase", () => {
   let sut: CreateTaskUseCase;
-  let taskUserRepository: TaskUserRepository;
+  let tasksUsersRepository: TasksUsersRepository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         CreateTaskUseCase,
         {
-          provide: TaskRepository,
+          provide: TasksRepository,
           useClass: InMemoryTaskRepository
         },
         {
-          provide: TaskUserRepository,
-          useClass: InMemoryTaskUserRepository
+          provide: TasksUsersRepository,
+          useClass: InMemoryTasksUsersRepository
         }
       ]
     }).compile();
 
     sut = moduleRef.get<CreateTaskUseCase>(CreateTaskUseCase);
-    taskUserRepository = moduleRef.get<TaskUserRepository>(TaskUserRepository);
+    tasksUsersRepository =
+      moduleRef.get<TasksUsersRepository>(TasksUsersRepository);
   });
 
   it("Should be able to create a new task", async () => {
@@ -43,7 +44,7 @@ describe("CreateTaskUseCase", () => {
   });
 
   it("Should be able to create a new task and link to a user", async () => {
-    const saveTaskUserSpy = jest.spyOn(taskUserRepository, "save");
+    const saveTaskUserSpy = jest.spyOn(tasksUsersRepository, "save");
 
     const { task } = await sut.execute({
       title: "New Task",

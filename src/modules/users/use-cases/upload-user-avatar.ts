@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common";
 
 import { Storage } from "@infra/providers/storage/storage";
 
-import { UserRepository } from "../repositories/user.repository";
+import { UsersRepository } from "../repositories/users.repository";
 
 interface UploadUserAvatarRequest {
   userId: string;
@@ -15,7 +15,7 @@ interface UploadUserAvatarRequest {
 export class UploadUserAvatarUseCase {
   constructor(
     private readonly storage: Storage,
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UsersRepository
   ) {}
 
   async execute({ userId, avatar }: UploadUserAvatarRequest) {

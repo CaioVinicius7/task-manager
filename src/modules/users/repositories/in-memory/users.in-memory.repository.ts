@@ -3,9 +3,9 @@ import { randomUUID } from "node:crypto";
 import { CreatedUser, CreateUser } from "@modules/users/dto/create-user.dto";
 import { UsernameAndEmail } from "@modules/users/dto/find-by-username-or-email.dto";
 
-import { UserRepository } from "../user.repository";
+import { UsersRepository } from "../users.repository";
 
-export class InMemoryUserRepository implements UserRepository {
+export class InMemoryUsersRepository implements UsersRepository {
   public users: CreatedUser[] = [];
 
   async findByUsernameOrEmail({

@@ -2,10 +2,10 @@ import { Injectable } from "@nestjs/common";
 
 import { PrismaService } from "@infra/database/prisma.service";
 
-import { TaskUserRepository } from "../task-user.repository";
+import { TasksUsersRepository } from "../tasks-users.repository";
 
 @Injectable()
-export class PrismaTaskUserRepository implements TaskUserRepository {
+export class PrismaTasksUsersRepository implements TasksUsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async save(userId: string, taskId: string): Promise<void> {

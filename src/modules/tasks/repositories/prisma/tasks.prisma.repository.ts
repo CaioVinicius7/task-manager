@@ -8,10 +8,10 @@ import type {
   TaskWithUsers
 } from "@modules/tasks/dto/create-task.dto";
 
-import { TaskRepository } from "../task.repository";
+import { TasksRepository } from "../tasks.repository";
 
 @Injectable()
-export class PrismaTaskRepository implements TaskRepository {
+export class PrismaTasksRepository implements TasksRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async save({

@@ -2,8 +2,8 @@ import { Module } from "@nestjs/common";
 import { ClientsModule, Transport } from "@nestjs/microservices";
 import { ScheduleModule } from "@nestjs/schedule";
 
-import { PrismaTaskRepository } from "@modules/tasks/repositories/prisma/task.prisma.repository";
-import { TaskRepository } from "@modules/tasks/repositories/task.repository";
+import { PrismaTasksRepository } from "@modules/tasks/repositories/prisma/tasks.prisma.repository";
+import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 
 import { NotificationTaskUserSchedule } from "./notification-task-user.schedule";
 
@@ -25,8 +25,8 @@ import { NotificationTaskUserSchedule } from "./notification-task-user.schedule"
   providers: [
     NotificationTaskUserSchedule,
     {
-      provide: TaskRepository,
-      useClass: PrismaTaskRepository
+      provide: TasksRepository,
+      useClass: PrismaTasksRepository
     }
   ]
 })

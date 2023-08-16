@@ -4,7 +4,7 @@ import type {
   TaskWithUsers
 } from "../dto/create-task.dto";
 
-export abstract class TaskRepository {
+export abstract class TasksRepository {
   abstract save(data: CreateTask): Promise<CreatedTask>;
   abstract findAllTasksStartInTheDay(): Promise<TaskWithUsers[]>;
 }

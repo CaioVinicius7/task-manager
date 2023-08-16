@@ -8,7 +8,7 @@ import { ScheduleTaskModule } from "@infra/jobs/schedule.module";
 
 import { AuthenticationModule } from "./modules/authentication/authentication.module";
 import { TasksModule } from "./modules/tasks/tasks.module";
-import { UserModule } from "./modules/users/user.module";
+import { UserModule } from "./modules/users/users.module";
 
 @Module({
   imports: [

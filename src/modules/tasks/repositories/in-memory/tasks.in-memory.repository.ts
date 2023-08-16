@@ -6,9 +6,9 @@ import {
   TaskWithUsers
 } from "@modules/tasks/dto/create-task.dto";
 
-import { TaskRepository } from "../task.repository";
+import { TasksRepository } from "../tasks.repository";
 
-export class InMemoryTaskRepository implements TaskRepository {
+export class InMemoryTaskRepository implements TasksRepository {
   public tasks: CreatedTask[] = [];
 
   async save({

@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 
-import { UserModule } from "../users/user.module";
+import { UserModule } from "../users/users.module";
 import { AuthenticationController } from "./authentication.controller";
 import { SignInUseCase } from "./use-cases/sing-in";
 
@@ -11,7 +11,7 @@ import { SignInUseCase } from "./use-cases/sing-in";
       global: true,
       secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: "60s"
+        expiresIn: "1h"
       }
     }),
     UserModule

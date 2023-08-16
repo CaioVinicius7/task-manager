@@ -2,7 +2,7 @@ import { hash } from "bcrypt";
 
 import { Injectable } from "@nestjs/common";
 
-import { UserRepository } from "../repositories/user.repository";
+import { UsersRepository } from "../repositories/users.repository";
 import { UserAlreadyExists } from "./errors/user-already-exists";
 
 interface CreateUserRequest {
@@ -14,7 +14,7 @@ interface CreateUserRequest {
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: UsersRepository) {}
 
   async execute({ name, username, email, password }: CreateUserRequest) {
     const user = await this.userRepository.findByUsernameOrEmail({

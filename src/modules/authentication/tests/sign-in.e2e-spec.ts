@@ -5,9 +5,9 @@ import { JwtModule } from "@nestjs/jwt";
 import { Test } from "@nestjs/testing";
 
 import { DatabaseModule } from "@infra/database/database.module";
-import { PrismaUserRepository } from "@modules/users/repositories/prisma/user.prisma.repository";
-import { UserRepository } from "@modules/users/repositories/user.repository";
-import { UserModule } from "@modules/users/user.module";
+import { PrismaUsersRepository } from "@modules/users/repositories/prisma/users.prisma.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
+import { UserModule } from "@modules/users/users.module";
 
 import { AuthenticationController } from "../authentication.controller";
 import { SignInUseCase } from "../use-cases/sing-in";
@@ -33,8 +33,8 @@ describe("[POST] /sign-in", () => {
         SignInUseCase,
 
         {
-          provide: UserRepository,
-          useClass: PrismaUserRepository
+          provide: UsersRepository,
+          useClass: PrismaUsersRepository
         }
       ]
     }).compile();
