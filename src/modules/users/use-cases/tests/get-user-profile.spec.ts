@@ -8,7 +8,7 @@ import { GetUserProfileUseCase } from "../get-user-profile";
 
 describe("GetUserProfileUseCase", () => {
   let sut: GetUserProfileUseCase;
-  let createUserUseCase: CreateUserUseCase;
+  let usersRepository: UsersRepository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -23,7 +23,7 @@ describe("GetUserProfileUseCase", () => {
     }).compile();
 
     sut = moduleRef.get<GetUserProfileUseCase>(GetUserProfileUseCase);
-    createUserUseCase = moduleRef.get<CreateUserUseCase>(CreateUserUseCase);
+    usersRepository = moduleRef.get<UsersRepository>(UsersRepository);
   });
 
   it("Should be able to get user profile", async () => {
@@ -34,9 +34,9 @@ describe("GetUserProfileUseCase", () => {
       password: "@SuperSecret123"
     };
 
-    const { user: CreatedUser } = await createUserUseCase.execute(newUser);
+    const createdUser = await usersRepository.save(newUser);
 
-    const { user } = await sut.execute(CreatedUser.id);
+    const { user } = await sut.execute(createdUser.id);
 
     expect(user.name).toEqual("Caio");
     expect(user.username).toEqual("CaioVinícius7");
