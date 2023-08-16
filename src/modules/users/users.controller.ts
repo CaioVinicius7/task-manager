@@ -13,7 +13,7 @@ import {
   UploadedFile
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBody, ApiTags, ApiResponse } from "@nestjs/swagger";
+import { ApiBody, ApiTags, ApiResponse, ApiBearerAuth } from "@nestjs/swagger";
 
 import { Public } from "@infra/decorators/public.decorator";
 import { AuthGuard } from "@infra/providers/auth-guard";
@@ -74,6 +74,7 @@ export class UserController {
   }
 
   @Get("/profile")
+  @ApiBearerAuth()
   async getProfile(@Req() request: Request) {
     const { user } = await this.getUserProfileUseCase.execute(request.user.sub);
 
@@ -85,6 +86,7 @@ export class UserController {
   }
 
   @Patch("/avatar")
+  @ApiBearerAuth()
   @UseInterceptors(FileInterceptor("file"))
   async uploadAvatar(
     @Req() req: Request,
