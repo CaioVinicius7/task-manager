@@ -60,6 +60,7 @@ describe("[POST] /users", () => {
 
     expect(statusCode).toEqual(201);
     expect(body.user).toEqual({
+      id: expect.any(String),
       name: "Caio",
       username: newUser.username,
       email: newUser.email
