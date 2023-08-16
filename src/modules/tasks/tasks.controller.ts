@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -14,8 +15,10 @@ import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateTaskDTO } from "./schemas/create-task";
 import { DeleteTaskDTO } from "./schemas/delete-task";
+import { GetTaskByUserIdDTO } from "./schemas/get-by-user-id";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
+import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
 
 @Controller("/tasks")
 @UseGuards(AuthGuard)
@@ -24,7 +27,8 @@ import { DeleteTaskUseCase } from "./use-cases/delete-task";
 export class TasksController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCase,
-    private readonly deleteTaskUseCase: DeleteTaskUseCase
+    private readonly deleteTaskUseCase: DeleteTaskUseCase,
+    private readonly getTasksByUserId: GetTasksByUserId
   ) {}
 
   @Post()
@@ -49,6 +53,17 @@ export class TasksController {
       endAt,
       userId
     });
+  }
+
+  @Get("/user/:userId")
+  async getByUserId(@Param() { userId }: GetTaskByUserIdDTO) {
+    const tasks = await this.getTasksByUserId.execute({
+      userId
+    });
+
+    return {
+      tasks
+    };
   }
 
   @Delete("/:taskId")
