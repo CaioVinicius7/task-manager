@@ -46,7 +46,7 @@ describe("[GET] /tasks/user/:userId", () => {
     await app.close();
   });
 
-  it("Should be create a task", async () => {
+  it("Should be able to get tasks of specific user", async () => {
     const { user, accessToken } = await createAndAuthNewUser(app);
 
     const newTask = {
