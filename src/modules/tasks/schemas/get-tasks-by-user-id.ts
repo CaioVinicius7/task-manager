@@ -1,7 +1,7 @@
 import { createZodDto } from "nestjs-zod";
 import { z } from "nestjs-zod/z";
 
-export const getTaskByUserIdSchema = z.object({
+export const getTasksByUserIdSchema = z.object({
   userId: z
     .string({
       required_error: "UserId is required."
@@ -11,4 +11,4 @@ export const getTaskByUserIdSchema = z.object({
     })
 });
 
-export class GetTaskByUserIdDTO extends createZodDto(getTaskByUserIdSchema) {}
+export class GetTasksByUserIdDTO extends createZodDto(getTasksByUserIdSchema) {}

@@ -18,7 +18,7 @@ import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateTaskDTO } from "./schemas/create-task";
 import { DeleteTaskDTO } from "./schemas/delete-task";
-import { GetTaskByUserIdDTO } from "./schemas/get-by-user-id";
+import { GetTasksByUserIdDTO } from "./schemas/get-tasks-by-user-id";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
@@ -70,7 +70,7 @@ export class TasksController {
   }
 
   @Get("/user/:userId")
-  async getByUserId(@Param() { userId }: GetTaskByUserIdDTO) {
+  async getByUserId(@Param() { userId }: GetTasksByUserIdDTO) {
     const tasks = await this.getTasksByUserId.execute({
       userId
     });
