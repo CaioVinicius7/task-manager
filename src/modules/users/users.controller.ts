@@ -13,7 +13,13 @@ import {
   UploadedFile
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBody, ApiTags, ApiResponse, ApiBearerAuth } from "@nestjs/swagger";
+import {
+  ApiBody,
+  ApiTags,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiConsumes
+} from "@nestjs/swagger";
 
 import { Public } from "@infra/decorators/public.decorator";
 import { AuthGuard } from "@infra/providers/auth-guard";
@@ -87,6 +93,31 @@ export class UserController {
 
   @Patch("/avatar")
   @ApiBearerAuth()
+  @ApiConsumes("multipart/form-data")
+  @ApiBody({
+    schema: {
+      type: "object",
+      properties: {
+        file: {
+          type: "string",
+          format: "binary"
+        }
+      }
+    }
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Avatar updated",
+    schema: {
+      type: "object",
+      properties: {
+        path: {
+          type: "string",
+          example: "https://supabase.com/bucket/image.png"
+        }
+      }
+    }
+  })
   @UseInterceptors(FileInterceptor("file"))
   async uploadAvatar(
     @Req() req: Request,
