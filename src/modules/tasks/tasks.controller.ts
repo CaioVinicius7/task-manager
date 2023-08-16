@@ -22,7 +22,7 @@ import { GetTaskByIdDTO } from "./schemas/get-by-id";
 import { GetTasksByUserIdDTO } from "./schemas/get-tasks-by-user-id";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
-import { GetTasksById } from "./use-cases/get-task-by-id";
+import { GetTaskById } from "./use-cases/get-task-by-id";
 import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
 
 @Controller("/tasks")
@@ -34,7 +34,7 @@ export class TasksController {
     private readonly createTaskUseCase: CreateTaskUseCase,
     private readonly deleteTaskUseCase: DeleteTaskUseCase,
     private readonly getTasksByUserId: GetTasksByUserId,
-    private readonly getTaskById: GetTasksById
+    private readonly getTaskById: GetTaskById
   ) {}
 
   @Post()
