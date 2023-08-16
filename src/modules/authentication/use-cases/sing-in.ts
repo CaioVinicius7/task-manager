@@ -7,7 +7,7 @@ import { UserRepository } from "@modules/users/repositories/user.repository";
 
 import { InvalidCredentials } from "./errors/invalid-credentials";
 
-export interface SignInRequest {
+interface SignInRequest {
   username: string;
   password: string;
 }
