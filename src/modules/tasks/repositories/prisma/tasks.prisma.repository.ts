@@ -36,6 +36,16 @@ export class PrismaTasksRepository implements TasksRepository {
     return task;
   }
 
+  async findById(id: string): Promise<CreateTask | null> {
+    const task = await this.prisma.task.findUnique({
+      where: {
+        id
+      }
+    });
+
+    return task;
+  }
+
   async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
     const tasks = await this.prisma.task.findMany({
       where: {
@@ -72,5 +82,13 @@ export class PrismaTasksRepository implements TasksRepository {
     });
 
     return formattedUser;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.task.delete({
+      where: {
+        id
+      }
+    });
   }
 }

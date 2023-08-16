@@ -35,7 +35,25 @@ export class InMemoryTaskRepository implements TasksRepository {
     return newTask;
   }
 
+  async findById(id: string): Promise<CreateTask | null> {
+    const task = await this.tasks.find((task) => task.id === id);
+
+    if (!task) {
+      return null;
+    }
+
+    return task;
+  }
+
   async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
     throw new Error("Method not implemented.");
+  }
+
+  async delete(id: string): Promise<void> {
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
+
+    if (taskIndex >= 0) {
+      this.tasks.splice(taskIndex, 1);
+    }
   }
 }
