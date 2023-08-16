@@ -13,6 +13,7 @@ import { TasksRepository } from "../repositories/tasks.repository";
 import { TasksController } from "../tasks.controller";
 import { CreateTaskUseCase } from "../use-cases/create-task";
 import { DeleteTaskUseCase } from "../use-cases/delete-task";
+import { GetTasksByUserId } from "../use-cases/get-tasks-by-user-id";
 
 describe("[POST] /tasks", () => {
   let app: INestApplication;
@@ -24,6 +25,7 @@ describe("[POST] /tasks", () => {
       providers: [
         CreateTaskUseCase,
         DeleteTaskUseCase,
+        GetTasksByUserId,
         {
           provide: TasksRepository,
           useClass: PrismaTasksRepository
@@ -77,8 +79,8 @@ describe("[POST] /tasks", () => {
       id: expect.any(String),
       title: newTask.title,
       description: newTask.description,
-      priority: "high",
-      status: "todo",
+      priority: newTask.priority,
+      status: newTask.status,
       startAt: null,
       endAt: null,
       createdAt: expect.any(String)
