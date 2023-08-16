@@ -46,7 +46,11 @@ export class InMemoryTaskRepository implements TasksRepository {
   }
 
   async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
-    throw new Error("Method not implemented.");
+    return [];
+  }
+
+  async findByUserId(_: string): Promise<CreateTask[]> {
+    return [];
   }
 
   async delete(id: string): Promise<void> {

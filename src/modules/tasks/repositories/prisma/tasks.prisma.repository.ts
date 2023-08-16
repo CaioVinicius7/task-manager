@@ -46,6 +46,20 @@ export class PrismaTasksRepository implements TasksRepository {
     return task;
   }
 
+  async findByUserId(userId: string): Promise<CreateTask[]> {
+    const tasks = await this.prisma.task.findMany({
+      where: {
+        TaskUser: {
+          every: {
+            userId
+          }
+        }
+      }
+    });
+
+    return tasks;
+  }
+
   async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
     const tasks = await this.prisma.task.findMany({
       where: {
