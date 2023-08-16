@@ -15,6 +15,7 @@ import {
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiTags, ApiResponse } from "@nestjs/swagger";
 
+import { Public } from "@infra/decorators/public.decorator";
 import { AuthGuard } from "@infra/providers/auth-guard";
 
 import {
@@ -34,6 +35,7 @@ const createUserResponseSchemaForSwagger = zodToOpenAPI(
 
 @Controller("/users")
 @ApiTags("users")
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
@@ -42,6 +44,7 @@ export class UserController {
   ) {}
 
   @Post()
+  @Public()
   @ApiBody({
     schema: createUserSchemaForSwagger,
     description: "Endpoint to create new user"
@@ -71,7 +74,6 @@ export class UserController {
   }
 
   @Get("/profile")
-  @UseGuards(AuthGuard)
   async getProfile(@Req() request: Request) {
     const { user } = await this.getUserProfileUseCase.execute(request.user.sub);
 
@@ -83,7 +85,6 @@ export class UserController {
   }
 
   @Patch("/avatar")
-  @UseGuards(AuthGuard)
   @UseInterceptors(FileInterceptor("file"))
   async uploadAvatar(
     @Req() req: Request,
