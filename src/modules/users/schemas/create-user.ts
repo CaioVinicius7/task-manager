@@ -1,7 +1,7 @@
 import { createZodDto } from "nestjs-zod";
 import { z } from "nestjs-zod/z";
 
-export const CreateUserSchema = z.object({
+export const createUserSchema = z.object({
   name: z.string({
     required_error: "Name is required."
   }),
@@ -18,14 +18,16 @@ export const CreateUserSchema = z.object({
   })
 });
 
-export class CreateUserDTO extends createZodDto(CreateUserSchema) {}
+export class CreateUserDTO extends createZodDto(createUserSchema) {}
 
-export const CreateUserResponseSchema = CreateUserSchema.extend({
-  id: z.string().uuid({
-    message: "Id must be a valid uuid."
+export const createUserResponseSchema = createUserSchema
+  .extend({
+    id: z.string().uuid({
+      message: "Id must be a valid uuid."
+    })
   })
-}).omit({
-  password: true
-});
+  .omit({
+    password: true
+  });
 
-export type CreateUserResponseDTO = z.infer<typeof CreateUserResponseSchema>;
+export type CreateUserResponseDTO = z.infer<typeof createUserResponseSchema>;

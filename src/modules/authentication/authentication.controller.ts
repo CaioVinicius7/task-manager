@@ -3,10 +3,10 @@ import { zodToOpenAPI } from "nestjs-zod";
 import { Controller, Body, Post, HttpCode, HttpStatus } from "@nestjs/common";
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-import { SignInSchema, SignInSchemaDTO } from "./schemas/sign-in";
+import { signInSchema, SignInSchemaDTO } from "./schemas/sign-in";
 import { SignInUseCase } from "./use-cases/sing-in";
 
-const signInSchemaForSwagger = zodToOpenAPI(SignInSchema);
+const signInSchemaForSwagger = zodToOpenAPI(signInSchema);
 @Controller()
 export class AuthenticationController {
   constructor(private readonly signInUseCase: SignInUseCase) {}

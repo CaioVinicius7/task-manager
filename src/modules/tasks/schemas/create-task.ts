@@ -1,7 +1,7 @@
 import { createZodDto } from "nestjs-zod";
 import { z } from "nestjs-zod/z";
 
-export const CreateTaskSchema = z.object({
+export const createTaskSchema = z.object({
   title: z.string({
     required_error: "Title is required."
   }),
@@ -59,4 +59,4 @@ export const CreateTaskSchema = z.object({
     .optional()
 });
 
-export class CreateTaskDTO extends createZodDto(CreateTaskSchema) {}
+export class CreateTaskDTO extends createZodDto(createTaskSchema) {}

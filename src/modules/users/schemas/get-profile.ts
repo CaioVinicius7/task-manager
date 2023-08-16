@@ -1,6 +1,6 @@
 import { z } from "nestjs-zod/z";
 
-export const GetProfileResponseSchema = z.object({
+export const getProfileResponseSchema = z.object({
   name: z.string({
     required_error: "Name is required."
   }),
@@ -16,4 +16,4 @@ export const GetProfileResponseSchema = z.object({
   createdAt: z.coerce.date()
 });
 
-export type GetProfileResponseDTO = z.infer<typeof GetProfileResponseSchema>;
+export type GetProfileResponseDTO = z.infer<typeof getProfileResponseSchema>;
