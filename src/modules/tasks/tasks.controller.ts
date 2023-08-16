@@ -8,7 +8,7 @@ import {
   Post,
   UseGuards
 } from "@nestjs/common";
-import { ApiBearerAuth } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
@@ -19,6 +19,7 @@ import { DeleteTaskUseCase } from "./use-cases/delete-task";
 
 @Controller("/tasks")
 @UseGuards(AuthGuard)
+@ApiTags("Tasks")
 @ApiBearerAuth()
 export class TasksController {
   constructor(

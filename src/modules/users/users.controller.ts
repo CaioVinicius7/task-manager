@@ -40,7 +40,7 @@ const createUserResponseSchemaForSwagger = zodToOpenAPI(
 );
 
 @Controller("/users")
-@ApiTags("users")
+@ApiTags("Users")
 @UseGuards(AuthGuard)
 export class UserController {
   constructor(

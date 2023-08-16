@@ -1,4 +1,5 @@
 import { Controller, Body, Post, HttpCode, HttpStatus } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
 import { SignInSchemaDTO } from "./schemas/sign-in";
 import { SignInUseCase } from "./use-cases/sing-in";
@@ -9,6 +10,7 @@ export class AuthenticationController {
 
   @Post("/sign-in")
   @HttpCode(HttpStatus.OK)
+  @ApiTags("Authorization")
   async signIn(@Body() { username, password }: SignInSchemaDTO) {
     return await this.signInUseCase.execute({
       username,
