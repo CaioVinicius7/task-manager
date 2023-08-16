@@ -16,11 +16,11 @@ interface SignInRequest {
 export class SignInUseCase {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userRepository: UsersRepository
+    private readonly usersRepository: UsersRepository
   ) {}
 
   async execute({ username, password }: SignInRequest) {
-    const user = await this.userRepository.findByUsername(username);
+    const user = await this.usersRepository.findByUsername(username);
 
     if (!user) {
       throw new InvalidCredentials();

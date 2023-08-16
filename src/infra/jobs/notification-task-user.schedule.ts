@@ -8,12 +8,12 @@ import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 export class NotificationTaskUserSchedule {
   constructor(
     @Inject("NOTIFICATION") private readonly notificationClient: ClientProxy,
-    private readonly taskRepository: TasksRepository
+    private readonly tasksRepository: TasksRepository
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
   async getAndSendAllTasksDay() {
-    const allTasks = await this.taskRepository.findAllTasksStartInTheDay();
+    const allTasks = await this.tasksRepository.findAllTasksStartInTheDay();
 
     allTasks.forEach((task) => {
       this.notificationClient.emit("task_notification", task);

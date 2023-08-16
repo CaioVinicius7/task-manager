@@ -4,10 +4,10 @@ import { UsersRepository } from "../repositories/users.repository";
 
 @Injectable()
 export class GetUserProfileUseCase {
-  constructor(private readonly userRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute(id: string) {
-    const user = await this.userRepository.findById(id);
+    const user = await this.usersRepository.findById(id);
 
     return {
       user

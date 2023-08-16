@@ -16,8 +16,8 @@ interface CreateTaskRequest {
 @Injectable()
 export class CreateTaskUseCase {
   constructor(
-    private readonly taskRepository: TasksRepository,
-    private readonly taskUserRepository: TasksUsersRepository
+    private readonly tasksRepository: TasksRepository,
+    private readonly tasksUsersRepository: TasksUsersRepository
   ) {}
 
   async execute({
@@ -29,7 +29,7 @@ export class CreateTaskUseCase {
     startAt,
     endAt
   }: CreateTaskRequest) {
-    const task = await this.taskRepository.save({
+    const task = await this.tasksRepository.save({
       title,
       description,
       priority,
@@ -39,7 +39,7 @@ export class CreateTaskUseCase {
     });
 
     if (userId) {
-      await this.taskUserRepository.save(userId, task.id);
+      await this.tasksUsersRepository.save(userId, task.id);
     }
 
     return {

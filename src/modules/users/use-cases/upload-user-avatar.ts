@@ -15,7 +15,7 @@ interface UploadUserAvatarRequest {
 export class UploadUserAvatarUseCase {
   constructor(
     private readonly storage: Storage,
-    private readonly userRepository: UsersRepository
+    private readonly usersRepository: UsersRepository
   ) {}
 
   async execute({ userId, avatar }: UploadUserAvatarRequest) {
@@ -27,7 +27,7 @@ export class UploadUserAvatarUseCase {
 
     const { path } = await this.storage.upload(avatar, "/avatar");
 
-    await this.userRepository.updateAvatarUrl(userId, path);
+    await this.usersRepository.updateAvatarUrl(userId, path);
 
     return {
       path

@@ -14,10 +14,10 @@ interface CreateUserRequest {
 
 @Injectable()
 export class CreateUserUseCase {
-  constructor(private readonly userRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({ name, username, email, password }: CreateUserRequest) {
-    const user = await this.userRepository.findByUsernameOrEmail({
+    const user = await this.usersRepository.findByUsernameOrEmail({
       username,
       email
     });
@@ -28,7 +28,7 @@ export class CreateUserUseCase {
 
     const passwordHashed = await hash(password, 10);
 
-    const createdUser = await this.userRepository.save({
+    const createdUser = await this.usersRepository.save({
       name,
       username,
       email,
