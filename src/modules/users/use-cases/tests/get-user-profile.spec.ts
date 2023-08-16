@@ -1,6 +1,6 @@
 import { Test } from "@nestjs/testing";
 
-import { InMemoryUserRepository } from "@modules/users/repositories/in-memory/in-memory-user.repository";
+import { InMemoryUserRepository } from "@modules/users/repositories/in-memory/user.in-memory.repository";
 import { UserRepository } from "@modules/users/repositories/user.repository";
 
 import { CreateUserUseCase } from "../create-user";
