@@ -13,6 +13,7 @@ import { TasksRepository } from "../repositories/tasks.repository";
 import { TasksController } from "../tasks.controller";
 import { CreateTaskUseCase } from "../use-cases/create-task";
 import { DeleteTaskUseCase } from "../use-cases/delete-task";
+import { GetTasksByUserId } from "../use-cases/get-tasks-by-user-id";
 
 describe("[DELETE] /tasks/:taskId", () => {
   let app: INestApplication;
@@ -24,6 +25,7 @@ describe("[DELETE] /tasks/:taskId", () => {
       providers: [
         CreateTaskUseCase,
         DeleteTaskUseCase,
+        GetTasksByUserId,
         {
           provide: TasksRepository,
           useClass: PrismaTasksRepository
