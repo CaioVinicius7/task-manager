@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Delete,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   UseGuards
@@ -47,6 +49,7 @@ export class TasksController {
   }
 
   @Delete("/:taskId")
+  @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param() { taskId }: DeleteTaskDTO) {
     return this.deleteTaskUseCase.execute({
       taskId
