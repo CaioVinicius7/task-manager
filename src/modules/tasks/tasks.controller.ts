@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 import {
   Body,
   Controller,
@@ -7,6 +9,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
   UseGuards
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
@@ -53,6 +56,17 @@ export class TasksController {
       endAt,
       userId
     });
+  }
+
+  @Get()
+  async getUserTasks(@Req() req: Request) {
+    const tasks = await this.getTasksByUserId.execute({
+      userId: req.user.sub
+    });
+
+    return {
+      tasks
+    };
   }
 
   @Get("/user/:userId")
