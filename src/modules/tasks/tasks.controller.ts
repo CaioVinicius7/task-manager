@@ -39,7 +39,12 @@ import {
   getTasksByUserIdResponseSchema
 } from "./schemas/get-tasks-by-user-id";
 import { getUserTasksResponseSchema } from "./schemas/get-user-tasks";
-import { UpdateTaskDTO, UpdateTaskParamsDTO } from "./schemas/update-task";
+import {
+  UpdateTaskDTO,
+  UpdateTaskParamsDTO,
+  updateTaskResponseSchema,
+  updateTaskSchema
+} from "./schemas/update-task";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskByIdUseCase } from "./use-cases/get-task-by-id";
@@ -59,6 +64,10 @@ const getTasksByUserIdResponseSchemaForSwagger = zodToOpenAPI(
 );
 const getUserTasksResponseSchemaForSwagger = zodToOpenAPI(
   getUserTasksResponseSchema
+);
+const UpdateTaskSchemaForSwagger = zodToOpenAPI(updateTaskSchema);
+const UpdateTaskResponseSchemaForSwagger = zodToOpenAPI(
+  updateTaskResponseSchema
 );
 
 @Controller("/tasks")
@@ -167,6 +176,22 @@ export class TasksController {
   }
 
   @Put("/:id")
+  @ApiParam({
+    name: "id",
+    schema: {
+      type: "string",
+      description: "Task id"
+    }
+  })
+  @ApiBody({
+    schema: UpdateTaskSchemaForSwagger,
+    description: "Endpoint to update a task"
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Task updated",
+    schema: UpdateTaskResponseSchemaForSwagger
+  })
   async update(
     @Param() { id }: UpdateTaskParamsDTO,
     @Body()
