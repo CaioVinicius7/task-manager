@@ -96,6 +96,17 @@ export class TasksController {
 
   @Delete("/:id")
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiParam({
+    name: "id",
+    schema: {
+      type: "string",
+      description: "Task id"
+    }
+  })
+  @ApiResponse({
+    status: 204,
+    description: "Successfully deleted"
+  })
   async delete(@Param() { id }: DeleteTaskDTO) {
     return this.deleteTaskUseCase.execute({
       taskId: id
