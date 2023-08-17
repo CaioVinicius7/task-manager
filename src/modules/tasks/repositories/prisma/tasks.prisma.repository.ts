@@ -51,7 +51,7 @@ export class PrismaTasksRepository implements TasksRepository {
     const tasks = await this.prisma.task.findMany({
       where: {
         TaskUser: {
-          every: {
+          some: {
             userId
           }
         }
