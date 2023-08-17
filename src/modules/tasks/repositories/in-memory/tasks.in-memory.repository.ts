@@ -35,7 +35,7 @@ export class InMemoryTaskRepository implements TasksRepository {
     return newTask;
   }
 
-  async findById(id: string): Promise<CreateTask | null> {
+  async findById(id: string): Promise<CreatedTask | null> {
     const task = await this.tasks.find((task) => task.id === id);
 
     if (!task) {
@@ -45,11 +45,11 @@ export class InMemoryTaskRepository implements TasksRepository {
     return task;
   }
 
-  async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
+  async findByUserId(_: string): Promise<CreatedTask[]> {
     return [];
   }
 
-  async findByUserId(_: string): Promise<CreateTask[]> {
+  async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
     return [];
   }
 

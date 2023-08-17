@@ -36,7 +36,7 @@ export class PrismaTasksRepository implements TasksRepository {
     return task;
   }
 
-  async findById(id: string): Promise<CreateTask | null> {
+  async findById(id: string): Promise<CreatedTask | null> {
     const task = await this.prisma.task.findUnique({
       where: {
         id
@@ -46,7 +46,7 @@ export class PrismaTasksRepository implements TasksRepository {
     return task;
   }
 
-  async findByUserId(userId: string): Promise<CreateTask[]> {
+  async findByUserId(userId: string): Promise<CreatedTask[]> {
     const tasks = await this.prisma.task.findMany({
       where: {
         TaskUser: {
