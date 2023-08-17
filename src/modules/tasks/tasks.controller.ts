@@ -23,7 +23,11 @@ import {
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
-import { CreateTaskDTO, createTaskSchema } from "./schemas/create-task";
+import {
+  CreateTaskDTO,
+  createTaskResponseSchema,
+  createTaskSchema
+} from "./schemas/create-task";
 import { DeleteTaskDTO } from "./schemas/delete-task";
 import {
   GetTaskByIdDTO,
@@ -39,7 +43,11 @@ import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskById } from "./use-cases/get-task-by-id";
 import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
 
+createTaskResponseSchema;
 const createTaskSchemaForSwagger = zodToOpenAPI(createTaskSchema);
+const createTaskResponseSchemaForSwagger = zodToOpenAPI(
+  createTaskResponseSchema
+);
 const getTasksByIdResponseSchemaForSwagger = zodToOpenAPI(
   getTasksByIdResponseSchema
 );
@@ -69,7 +77,8 @@ export class TasksController {
   })
   @ApiResponse({
     status: 201,
-    description: "Task created"
+    description: "Task created",
+    schema: createTaskResponseSchemaForSwagger
   })
   async create(
     @Body()
