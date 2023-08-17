@@ -33,6 +33,7 @@ import {
   GetTasksByUserIdDTO,
   getTasksByUserIdResponseSchema
 } from "./schemas/get-tasks-by-user-id";
+import { getUserTasksResponseSchema } from "./schemas/get-user-tasks";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskById } from "./use-cases/get-task-by-id";
@@ -44,6 +45,9 @@ const getTasksByIdResponseSchemaForSwagger = zodToOpenAPI(
 );
 const getTasksByUserIdResponseSchemaForSwagger = zodToOpenAPI(
   getTasksByUserIdResponseSchema
+);
+const getUserTasksResponseSchemaForSwagger = zodToOpenAPI(
+  getUserTasksResponseSchema
 );
 
 @Controller("/tasks")
@@ -91,6 +95,10 @@ export class TasksController {
   }
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    schema: getUserTasksResponseSchemaForSwagger
+  })
   async getUserTasks(@Req() req: Request) {
     const tasks = await this.getTasksByUserId.execute({
       userId: req.user.sub
