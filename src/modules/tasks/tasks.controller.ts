@@ -40,6 +40,7 @@ import {
   getTasksByUserIdResponseSchema
 } from "./schemas/get-tasks-by-user-id";
 import { getUserTasksResponseSchema } from "./schemas/get-user-tasks";
+import { UnassignTaskFromUserParamsDTO } from "./schemas/unassign-task-from-user";
 import {
   UpdateTaskDTO,
   UpdateTaskParamsDTO,
@@ -51,6 +52,7 @@ import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskByIdUseCase } from "./use-cases/get-task-by-id";
 import { GetTasksByUserIdUseCase } from "./use-cases/get-tasks-by-user-id";
+import { UnassignTaskFromUserUseCase } from "./use-cases/unassign-task-from-user";
 import { UpdateTaskUseCase } from "./use-cases/update-task";
 
 createTaskResponseSchema;
@@ -83,7 +85,8 @@ export class TasksController {
     private readonly updateTaskUseCase: UpdateTaskUseCase,
     private readonly getTasksByUserIdUseCase: GetTasksByUserIdUseCase,
     private readonly getTaskByIdUseCase: GetTaskByIdUseCase,
-    private readonly assignTaskToUserUseCase: AssignTaskToUserUseCase
+    private readonly assignTaskToUserUseCase: AssignTaskToUserUseCase,
+    private readonly unassignTaskFromUserUseCase: UnassignTaskFromUserUseCase
   ) {}
 
   @Post()
@@ -192,6 +195,17 @@ export class TasksController {
   })
   async assignToUser(@Param() { taskId, userId }: AssignTaskToUserParamsDTO) {
     await this.assignTaskToUserUseCase.execute({
+      taskId,
+      userId
+    });
+  }
+
+  @Delete("/:taskId/unassign/user/:userId")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async unassignFromUser(
+    @Param() { taskId, userId }: UnassignTaskFromUserParamsDTO
+  ) {
+    await this.unassignTaskFromUserUseCase.execute({
       taskId,
       userId
     });
