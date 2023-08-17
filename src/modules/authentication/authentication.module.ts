@@ -1,7 +1,9 @@
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 
-import { UserModule } from "../users/users.module";
+import { PrismaUsersRepository } from "@modules/users/repositories/prisma/users.prisma.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
+
 import { AuthenticationController } from "./authentication.controller";
 import { SignInUseCase } from "./use-cases/sing-in";
 
@@ -13,10 +15,15 @@ import { SignInUseCase } from "./use-cases/sing-in";
       signOptions: {
         expiresIn: "1h"
       }
-    }),
-    UserModule
+    })
   ],
   controllers: [AuthenticationController],
-  providers: [SignInUseCase]
+  providers: [
+    SignInUseCase,
+    {
+      provide: UsersRepository,
+      useClass: PrismaUsersRepository
+    }
+  ]
 })
 export class AuthenticationModule {}
