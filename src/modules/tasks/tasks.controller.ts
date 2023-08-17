@@ -10,6 +10,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Req,
   UseGuards
 } from "@nestjs/common";
@@ -38,10 +39,12 @@ import {
   getTasksByUserIdResponseSchema
 } from "./schemas/get-tasks-by-user-id";
 import { getUserTasksResponseSchema } from "./schemas/get-user-tasks";
+import { UpdateTaskDTO, UpdateTaskParamsDTO } from "./schemas/update-task";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskByIdUseCase } from "./use-cases/get-task-by-id";
 import { GetTasksByUserIdUseCase } from "./use-cases/get-tasks-by-user-id";
+import { UpdateTaskUseCase } from "./use-cases/update-task";
 
 createTaskResponseSchema;
 const createTaskSchemaForSwagger = zodToOpenAPI(createTaskSchema);
@@ -66,6 +69,7 @@ export class TasksController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCase,
     private readonly deleteTaskUseCase: DeleteTaskUseCase,
+    private readonly updateTaskUseCase: UpdateTaskUseCase,
     private readonly getTasksByUserIdUseCase: GetTasksByUserIdUseCase,
     private readonly getTaskByIdUseCase: GetTaskByIdUseCase
   ) {}
@@ -159,6 +163,29 @@ export class TasksController {
 
     return {
       tasks
+    };
+  }
+
+  @Put("/:id")
+  async update(
+    @Param() { id }: UpdateTaskParamsDTO,
+    @Body()
+    { title, description, priority, status, startAt, endAt }: UpdateTaskDTO
+  ) {
+    const updatedTask = await this.updateTaskUseCase.execute({
+      id,
+      data: {
+        title,
+        description,
+        priority,
+        status,
+        startAt,
+        endAt
+      }
+    });
+
+    return {
+      task: updatedTask
     };
   }
 
