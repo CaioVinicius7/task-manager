@@ -172,6 +172,24 @@ export class TasksController {
 
   @Post("/:taskId/assign/user/:userId")
   @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiParam({
+    name: "taskId",
+    schema: {
+      type: "string",
+      description: "Task id"
+    }
+  })
+  @ApiParam({
+    name: "userId",
+    schema: {
+      type: "string",
+      description: "User id"
+    }
+  })
+  @ApiResponse({
+    status: 204,
+    description: "Task assigned"
+  })
   async assignToUser(@Param() { taskId, userId }: AssignTaskToUserParamsDTO) {
     await this.assignTaskToUserUseCase.execute({
       taskId,
