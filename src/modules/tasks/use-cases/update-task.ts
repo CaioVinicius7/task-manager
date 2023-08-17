@@ -28,6 +28,8 @@ export class UpdateTaskUseCase {
 
     const updatedTask = await this.tasksRepository.update(id, data);
 
-    return updatedTask;
+    return {
+      task: updatedTask
+    };
   }
 }

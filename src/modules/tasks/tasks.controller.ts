@@ -122,13 +122,9 @@ export class TasksController {
     schema: getUserTasksResponseSchemaForSwagger
   })
   async getUserTasks(@Req() req: Request) {
-    const tasks = await this.getTasksByUserIdUseCase.execute({
+    return this.getTasksByUserIdUseCase.execute({
       userId: req.user.sub
     });
-
-    return {
-      tasks
-    };
   }
 
   @Get("/:id")
@@ -144,13 +140,9 @@ export class TasksController {
     schema: getTasksByIdResponseSchemaForSwagger
   })
   async getById(@Param() { id }: GetTaskByIdDTO) {
-    const task = await this.getTaskByIdUseCase.execute({
+    return this.getTaskByIdUseCase.execute({
       id
     });
-
-    return {
-      task
-    };
   }
 
   @Get("/user/:userId")
@@ -166,13 +158,9 @@ export class TasksController {
     schema: getTasksByUserIdResponseSchemaForSwagger
   })
   async getByUserId(@Param() { userId }: GetTasksByUserIdDTO) {
-    const tasks = await this.getTasksByUserIdUseCase.execute({
+    return this.getTasksByUserIdUseCase.execute({
       userId
     });
-
-    return {
-      tasks
-    };
   }
 
   @Put("/:id")
@@ -197,7 +185,7 @@ export class TasksController {
     @Body()
     { title, description, priority, status, startAt, endAt }: UpdateTaskDTO
   ) {
-    const updatedTask = await this.updateTaskUseCase.execute({
+    return this.updateTaskUseCase.execute({
       id,
       data: {
         title,
@@ -208,10 +196,6 @@ export class TasksController {
         endAt
       }
     });
-
-    return {
-      task: updatedTask
-    };
   }
 
   @Delete("/:id")

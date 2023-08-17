@@ -13,6 +13,8 @@ export class GetTaskByIdUseCase {
   async execute({ id }: GetTasksByIdRequest) {
     const task = await this.tasksRepository.findById(id);
 
-    return task;
+    return {
+      task
+    };
   }
 }

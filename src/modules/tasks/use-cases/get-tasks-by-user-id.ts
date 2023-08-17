@@ -13,6 +13,8 @@ export class GetTasksByUserIdUseCase {
   async execute({ userId }: GetTasksByUserIdRequest) {
     const tasks = await this.tasksRepository.findByUserId(userId);
 
-    return tasks;
+    return {
+      tasks
+    };
   }
 }
