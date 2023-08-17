@@ -109,7 +109,7 @@ export class TasksController {
     schema: getUserTasksResponseSchemaForSwagger
   })
   async getUserTasks(@Req() req: Request) {
-    const tasks = await this.getTasksByUserId.execute({
+    const tasks = await this.getTasksByUserIdUseCase.execute({
       userId: req.user.sub
     });
 
