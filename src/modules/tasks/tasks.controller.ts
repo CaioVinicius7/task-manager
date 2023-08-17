@@ -18,7 +18,7 @@ import { AuthGuard } from "@infra/providers/auth-guard";
 
 import { CreateTaskDTO } from "./schemas/create-task";
 import { DeleteTaskDTO } from "./schemas/delete-task";
-import { GetTaskByIdDTO } from "./schemas/get-by-id";
+import { GetTaskByIdDTO } from "./schemas/get-task-by-id";
 import { GetTasksByUserIdDTO } from "./schemas/get-tasks-by-user-id";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
