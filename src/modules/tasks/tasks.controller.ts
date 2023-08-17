@@ -12,7 +12,7 @@ import {
   Req,
   UseGuards
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
