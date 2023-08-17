@@ -9,6 +9,7 @@ import type {
 } from "@modules/tasks/dto/create-task.dto";
 
 import { TasksRepository } from "../tasks.repository";
+import { UpdateTask } from "@modules/tasks/dto/update-task.dto";
 
 @Injectable()
 export class PrismaTasksRepository implements TasksRepository {
@@ -96,6 +97,17 @@ export class PrismaTasksRepository implements TasksRepository {
     });
 
     return formattedUser;
+  }
+
+  async update(id: string, data: UpdateTask): Promise<CreateTask> {
+    const updatedTask = this.prisma.task.update({
+      where: {
+        id
+      },
+      data
+    });
+
+    return updatedTask;
   }
 
   async delete(id: string): Promise<void> {

@@ -5,6 +5,7 @@ import {
   CreatedTask,
   TaskWithUsers
 } from "@modules/tasks/dto/create-task.dto";
+import { UpdateTask } from "@modules/tasks/dto/update-task.dto";
 
 import { TasksRepository } from "../tasks.repository";
 
@@ -51,6 +52,19 @@ export class InMemoryTaskRepository implements TasksRepository {
 
   async findAllTasksStartInTheDay(): Promise<TaskWithUsers[]> {
     return [];
+  }
+
+  async update(id: string, data: UpdateTask): Promise<CreateTask> {
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
+
+    if (taskIndex >= 0) {
+      this.tasks[taskIndex] = {
+        ...this.tasks[taskIndex],
+        ...data
+      };
+
+      return this.tasks[taskIndex];
+    }
   }
 
   async delete(id: string): Promise<void> {
