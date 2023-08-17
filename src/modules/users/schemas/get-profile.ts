@@ -1,6 +1,9 @@
 import { z } from "nestjs-zod/z";
 
 export const getProfileResponseSchema = z.object({
+  id: z.string().uuid({
+    message: "Id mus be a valid uuid."
+  }),
   name: z.string({
     required_error: "Name is required."
   }),
