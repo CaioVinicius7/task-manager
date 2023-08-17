@@ -50,7 +50,7 @@ describe("[GET] /tasks", () => {
     await app.close();
   });
 
-  it("Should be get logged user tasks", async () => {
+  it("Should be able to get logged user tasks", async () => {
     const { user, accessToken } = await createAndAuthNewUser(app);
 
     const newTask = {

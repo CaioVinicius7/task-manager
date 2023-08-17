@@ -18,7 +18,7 @@ import { GetTaskByIdUseCase } from "../use-cases/get-task-by-id";
 import { GetTasksByUserIdUseCase } from "../use-cases/get-tasks-by-user-id";
 import { UpdateTaskUseCase } from "../use-cases/update-task";
 
-describe("[DELETE] /tasks/:taskId", () => {
+describe("[DELETE] /tasks/:id", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -50,7 +50,7 @@ describe("[DELETE] /tasks/:taskId", () => {
     await app.close();
   });
 
-  it("Should be delete a task", async () => {
+  it("Should be able to delete a task", async () => {
     const { accessToken } = await createAndAuthNewUser(app);
 
     const newTask = {
