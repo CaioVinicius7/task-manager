@@ -4,6 +4,7 @@ import { UsersRepository } from "@modules/users/repositories/users.repository";
 
 import { TasksUsersRepository } from "../repositories/tasks-users.repository";
 import { TasksRepository } from "../repositories/tasks.repository";
+import { AlreadyAssigned } from "./errors/already-assigned";
 import { TaskNotFound } from "./errors/task-not-found";
 import { UserNotFound } from "./errors/user-not-found";
 
@@ -31,6 +32,13 @@ export class AssignTaskToUserUseCase {
 
     if (!task) {
       throw new TaskNotFound();
+    }
+
+    const alreadyAssigned =
+      await this.tasksUsersRepository.findByTaskIdAndUserId(userId, taskId);
+
+    if (alreadyAssigned) {
+      throw new AlreadyAssigned();
     }
 
     await this.tasksUsersRepository.save(userId, taskId);

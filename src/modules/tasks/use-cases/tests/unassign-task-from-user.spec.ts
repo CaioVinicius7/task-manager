@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import { Test } from "@nestjs/testing";
 
 import { InMemoryTasksUsersRepository } from "@modules/tasks/repositories/in-memory/tasks-users.in-memory.repository";
@@ -7,6 +9,7 @@ import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 import { InMemoryUsersRepository } from "@modules/users/repositories/in-memory/users.in-memory.repository";
 import { UsersRepository } from "@modules/users/repositories/users.repository";
 
+import { NotAssigned } from "../errors/not-assigned";
 import { TaskNotFound } from "../errors/task-not-found";
 import { UserNotFound } from "../errors/user-not-found";
 import { UnassignTaskFromUserUseCase } from "../unassign-task-from-user";
@@ -43,6 +46,17 @@ describe("UnassignTaskToUserUseCase", () => {
     usersRepository = moduleRef.get<UsersRepository>(UsersRepository);
     tasksUsersRepository =
       moduleRef.get<TasksUsersRepository>(TasksUsersRepository);
+
+    tasksUsersRepository.findByTaskIdAndUserId = jest
+      .fn()
+      .mockImplementation((userId, taskId) => {
+        return {
+          id: randomUUID(),
+          taskId,
+          userId,
+          createdAt: new Date()
+        };
+      });
   });
 
   it("Should be able to unassign a task to a user", async () => {
@@ -96,5 +110,32 @@ describe("UnassignTaskToUserUseCase", () => {
         taskId: "fake-id"
       })
     ).rejects.toBeInstanceOf(TaskNotFound);
+  });
+
+  it("Should not be able to unassign with user and a task that are not related", async () => {
+    tasksUsersRepository.findByTaskIdAndUserId = jest
+      .fn()
+      .mockReturnValue(null);
+
+    const createdUser = await usersRepository.save({
+      name: "Caio",
+      username: "CaioVinícius7",
+      email: "caio@gmail.com",
+      password: "@SuperSecret123"
+    });
+
+    const createdTask = await tasksRepository.save({
+      title: "Title",
+      description: "Description",
+      priority: "high",
+      status: "doing"
+    });
+
+    await expect(() =>
+      sut.execute({
+        userId: createdUser.id,
+        taskId: createdTask.id
+      })
+    ).rejects.toBeInstanceOf(NotAssigned);
   });
 });

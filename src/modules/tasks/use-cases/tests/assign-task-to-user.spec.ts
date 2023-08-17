@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import { Test } from "@nestjs/testing";
 
 import { InMemoryTasksUsersRepository } from "@modules/tasks/repositories/in-memory/tasks-users.in-memory.repository";
@@ -8,6 +10,7 @@ import { InMemoryUsersRepository } from "@modules/users/repositories/in-memory/u
 import { UsersRepository } from "@modules/users/repositories/users.repository";
 
 import { AssignTaskToUserUseCase } from "../assign-task-to-user";
+import { AlreadyAssigned } from "../errors/already-assigned";
 import { TaskNotFound } from "../errors/task-not-found";
 import { UserNotFound } from "../errors/user-not-found";
 
@@ -91,5 +94,39 @@ describe("AssignTaskToUserUseCase", () => {
         taskId: "fake-id"
       })
     ).rejects.toBeInstanceOf(TaskNotFound);
+  });
+
+  it("Should not be able to assign with user and a task if both are already related", async () => {
+    tasksUsersRepository.findByTaskIdAndUserId = jest
+      .fn()
+      .mockImplementation((userId, taskId) => {
+        return {
+          id: randomUUID(),
+          taskId,
+          userId,
+          createdAt: new Date()
+        };
+      });
+
+    const createdUser = await usersRepository.save({
+      name: "Caio",
+      username: "CaioVinícius7",
+      email: "caio@gmail.com",
+      password: "@SuperSecret123"
+    });
+
+    const createdTask = await tasksRepository.save({
+      title: "Title",
+      description: "Description",
+      priority: "high",
+      status: "doing"
+    });
+
+    await expect(() =>
+      sut.execute({
+        userId: createdUser.id,
+        taskId: createdTask.id
+      })
+    ).rejects.toBeInstanceOf(AlreadyAssigned);
   });
 });
