@@ -27,7 +27,7 @@ describe("GetTasksByUserIdUseCase", () => {
   it("Should be able to get a user tasks", async () => {
     const findByUserIdSpy = jest.spyOn(tasksRepository, "findByUserId");
 
-    const tasks = await sut.execute({
+    const { tasks } = await sut.execute({
       userId: "fake-user-id"
     });
 

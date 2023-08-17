@@ -32,7 +32,7 @@ describe("GetTaskByIdUseCase", () => {
       status: "todo"
     });
 
-    const task = await sut.execute({
+    const { task } = await sut.execute({
       id: createdTask.id
     });
 
