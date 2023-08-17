@@ -13,6 +13,7 @@ import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskByIdUseCase } from "./use-cases/get-task-by-id";
 import { GetTasksByUserIdUseCase } from "./use-cases/get-tasks-by-user-id";
+import { UnassignTaskFromUserUseCase } from "./use-cases/unassign-task-from-user";
 import { UpdateTaskUseCase } from "./use-cases/update-task";
 
 @Module({
@@ -25,6 +26,7 @@ import { UpdateTaskUseCase } from "./use-cases/update-task";
     GetTaskByIdUseCase,
     UpdateTaskUseCase,
     AssignTaskToUserUseCase,
+    UnassignTaskFromUserUseCase,
     {
       provide: TasksRepository,
       useClass: PrismaTasksRepository

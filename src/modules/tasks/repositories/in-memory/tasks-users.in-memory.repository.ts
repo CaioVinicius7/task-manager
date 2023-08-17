@@ -9,4 +9,14 @@ export class InMemoryTasksUsersRepository implements TasksUsersRepository {
       taskId
     });
   }
+
+  async delete(userId: string, taskId: string): Promise<void> {
+    const taskUserIndex = this.tasksUsers.findIndex((taskUser) => {
+      return taskUser.userId === userId && taskUser.taskId === taskId;
+    });
+
+    if (taskUserIndex >= 0) {
+      this.tasksUsers.splice(taskUserIndex, 1);
+    }
+  }
 }

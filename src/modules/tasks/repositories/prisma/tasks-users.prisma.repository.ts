@@ -16,4 +16,15 @@ export class PrismaTasksUsersRepository implements TasksUsersRepository {
       }
     });
   }
+
+  async delete(userId: string, taskId: string): Promise<void> {
+    await this.prisma.taskUser.delete({
+      where: {
+        taskId_userId: {
+          taskId,
+          userId
+        }
+      }
+    });
+  }
 }
