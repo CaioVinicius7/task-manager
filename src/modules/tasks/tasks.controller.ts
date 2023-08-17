@@ -139,6 +139,10 @@ export class TasksController {
     status: 200,
     schema: getTasksByIdResponseSchemaForSwagger
   })
+  @ApiResponse({
+    status: 404,
+    description: "Task not found."
+  })
   async getById(@Param() { id }: GetTaskByIdDTO) {
     return this.getTaskByIdUseCase.execute({
       id

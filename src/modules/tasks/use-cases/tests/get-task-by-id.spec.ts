@@ -3,6 +3,7 @@ import { Test } from "@nestjs/testing";
 import { InMemoryTaskRepository } from "@modules/tasks/repositories/in-memory/tasks.in-memory.repository";
 import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 
+import { TaskNotFound } from "../errors/task-not-found";
 import { GetTaskByIdUseCase } from "../get-task-by-id";
 
 describe("GetTaskByIdUseCase", () => {
@@ -46,5 +47,13 @@ describe("GetTaskByIdUseCase", () => {
       endAt: undefined,
       createdAt: expect.any(Date)
     });
+  });
+
+  it("Should not be able get a non-existent task", async () => {
+    await expect(() =>
+      sut.execute({
+        id: "fake id"
+      })
+    ).rejects.toBeInstanceOf(TaskNotFound);
   });
 });
