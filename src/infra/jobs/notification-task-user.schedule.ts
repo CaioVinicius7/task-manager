@@ -11,7 +11,7 @@ export class NotificationTaskUserSchedule {
     private readonly tasksRepository: TasksRepository
   ) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.MONDAY_TO_FRIDAY_AT_09_30AM)
   async getAndSendAllTasksDay() {
     const allTasks = await this.tasksRepository.findAllTasksStartInTheDay();
 
