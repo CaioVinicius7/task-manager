@@ -14,8 +14,8 @@ import { TasksRepository } from "../repositories/tasks.repository";
 import { TasksController } from "../tasks.controller";
 import { CreateTaskUseCase } from "../use-cases/create-task";
 import { DeleteTaskUseCase } from "../use-cases/delete-task";
-import { GetTaskById } from "../use-cases/get-task-by-id";
-import { GetTasksByUserId } from "../use-cases/get-tasks-by-user-id";
+import { GetTaskByIdUseCase } from "../use-cases/get-task-by-id";
+import { GetTasksByUserIdUseCase } from "../use-cases/get-tasks-by-user-id";
 
 describe("[GET] /tasks/:id", () => {
   let app: INestApplication;
@@ -27,8 +27,8 @@ describe("[GET] /tasks/:id", () => {
       providers: [
         CreateTaskUseCase,
         DeleteTaskUseCase,
-        GetTasksByUserId,
-        GetTaskById,
+        GetTasksByUserIdUseCase,
+        GetTaskByIdUseCase,
         {
           provide: TasksRepository,
           useClass: PrismaTasksRepository

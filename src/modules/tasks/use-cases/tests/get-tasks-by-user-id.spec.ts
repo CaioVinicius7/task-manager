@@ -3,16 +3,16 @@ import { Test } from "@nestjs/testing";
 import { InMemoryTaskRepository } from "@modules/tasks/repositories/in-memory/tasks.in-memory.repository";
 import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 
-import { GetTasksByUserId } from "../get-tasks-by-user-id";
+import { GetTasksByUserIdUseCase } from "../get-tasks-by-user-id";
 
 describe("GetTasksByUserIdUseCase", () => {
-  let sut: GetTasksByUserId;
+  let sut: GetTasksByUserIdUseCase;
   let tasksRepository: TasksRepository;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
-        GetTasksByUserId,
+        GetTasksByUserIdUseCase,
         {
           provide: TasksRepository,
           useClass: InMemoryTaskRepository
@@ -20,7 +20,7 @@ describe("GetTasksByUserIdUseCase", () => {
       ]
     }).compile();
 
-    sut = moduleRef.get<GetTasksByUserId>(GetTasksByUserId);
+    sut = moduleRef.get<GetTasksByUserIdUseCase>(GetTasksByUserIdUseCase);
     tasksRepository = moduleRef.get<TasksRepository>(TasksRepository);
   });
 
