@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { zodToOpenAPI } from "nestjs-zod";
 
 import {
   Body,
@@ -12,11 +13,17 @@ import {
   Req,
   UseGuards
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+  ApiResponse,
+  ApiTags
+} from "@nestjs/swagger";
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
-import { CreateTaskDTO } from "./schemas/create-task";
+import { CreateTaskDTO, createTaskSchema } from "./schemas/create-task";
 import { DeleteTaskDTO } from "./schemas/delete-task";
 import { GetTaskByIdDTO } from "./schemas/get-task-by-id";
 import { GetTasksByUserIdDTO } from "./schemas/get-tasks-by-user-id";
@@ -24,6 +31,8 @@ import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskById } from "./use-cases/get-task-by-id";
 import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
+
+const createTaskSchemaForSwagger = zodToOpenAPI(createTaskSchema);
 
 @Controller("/tasks")
 @UseGuards(AuthGuard)
@@ -38,6 +47,14 @@ export class TasksController {
   ) {}
 
   @Post()
+  @ApiBody({
+    schema: createTaskSchemaForSwagger,
+    description: "Endpoint to create a new task"
+  })
+  @ApiResponse({
+    status: 201,
+    description: "Task created"
+  })
   async create(
     @Body()
     {
