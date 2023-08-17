@@ -24,6 +24,7 @@ import {
 
 import { AuthGuard } from "@infra/providers/auth-guard";
 
+import { AssignTaskToUserParamsDTO } from "./schemas/assign-task-to-user";
 import {
   CreateTaskDTO,
   createTaskResponseSchema,
@@ -45,6 +46,7 @@ import {
   updateTaskResponseSchema,
   updateTaskSchema
 } from "./schemas/update-task";
+import { AssignTaskToUserUseCase } from "./use-cases/assign-task-to-user";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskByIdUseCase } from "./use-cases/get-task-by-id";
@@ -80,7 +82,8 @@ export class TasksController {
     private readonly deleteTaskUseCase: DeleteTaskUseCase,
     private readonly updateTaskUseCase: UpdateTaskUseCase,
     private readonly getTasksByUserIdUseCase: GetTasksByUserIdUseCase,
-    private readonly getTaskByIdUseCase: GetTaskByIdUseCase
+    private readonly getTaskByIdUseCase: GetTaskByIdUseCase,
+    private readonly assignTaskToUserUseCase: AssignTaskToUserUseCase
   ) {}
 
   @Post()
@@ -163,6 +166,15 @@ export class TasksController {
   })
   async getByUserId(@Param() { userId }: GetTasksByUserIdDTO) {
     return this.getTasksByUserIdUseCase.execute({
+      userId
+    });
+  }
+
+  @Post("/:taskId/assign/user/:userId")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async assignToUser(@Param() { taskId, userId }: AssignTaskToUserParamsDTO) {
+    await this.assignTaskToUserUseCase.execute({
+      taskId,
       userId
     });
   }
