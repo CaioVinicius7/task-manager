@@ -7,7 +7,7 @@ interface GetTasksByIdRequest {
 }
 
 @Injectable()
-export class GetTaskById {
+export class GetTaskByIdUseCase {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
   async execute({ id }: GetTasksByIdRequest) {

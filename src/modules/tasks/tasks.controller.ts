@@ -40,8 +40,8 @@ import {
 import { getUserTasksResponseSchema } from "./schemas/get-user-tasks";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
-import { GetTaskById } from "./use-cases/get-task-by-id";
-import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
+import { GetTaskByIdUseCase } from "./use-cases/get-task-by-id";
+import { GetTasksByUserIdUseCase } from "./use-cases/get-tasks-by-user-id";
 
 createTaskResponseSchema;
 const createTaskSchemaForSwagger = zodToOpenAPI(createTaskSchema);
@@ -66,8 +66,8 @@ export class TasksController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCase,
     private readonly deleteTaskUseCase: DeleteTaskUseCase,
-    private readonly getTasksByUserId: GetTasksByUserId,
-    private readonly getTaskById: GetTaskById
+    private readonly getTasksByUserIdUseCase: GetTasksByUserIdUseCase,
+    private readonly getTaskByIdUseCase: GetTaskByIdUseCase
   ) {}
 
   @Post()
@@ -131,7 +131,7 @@ export class TasksController {
     schema: getTasksByIdResponseSchemaForSwagger
   })
   async getById(@Param() { id }: GetTaskByIdDTO) {
-    const task = await this.getTaskById.execute({
+    const task = await this.getTaskByIdUseCase.execute({
       id
     });
 
@@ -153,7 +153,7 @@ export class TasksController {
     schema: getTasksByUserIdResponseSchemaForSwagger
   })
   async getByUserId(@Param() { userId }: GetTasksByUserIdDTO) {
-    const tasks = await this.getTasksByUserId.execute({
+    const tasks = await this.getTasksByUserIdUseCase.execute({
       userId
     });
 
