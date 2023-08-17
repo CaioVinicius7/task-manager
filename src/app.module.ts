@@ -8,14 +8,14 @@ import { ScheduleTaskModule } from "@infra/jobs/schedule.module";
 
 import { AuthenticationModule } from "./modules/authentication/authentication.module";
 import { TasksModule } from "./modules/tasks/tasks.module";
-import { UserModule } from "./modules/users/users.module";
+import { UsersModule } from "./modules/users/users.module";
 
 @Module({
   imports: [
     DatabaseModule,
     ScheduleTaskModule,
     TasksModule,
-    UserModule,
+    UsersModule,
     AuthenticationModule
   ],
   controllers: [],

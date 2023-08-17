@@ -28,4 +28,4 @@ import { UserController } from "./users.controller";
   ],
   exports: [UsersRepository]
 })
-export class UserModule {}
+export class UsersModule {}
