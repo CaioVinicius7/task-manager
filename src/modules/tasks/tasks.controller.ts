@@ -29,7 +29,10 @@ import {
   GetTaskByIdDTO,
   getTasksByIdResponseSchema
 } from "./schemas/get-task-by-id";
-import { GetTasksByUserIdDTO } from "./schemas/get-tasks-by-user-id";
+import {
+  GetTasksByUserIdDTO,
+  getTasksByUserIdResponseSchema
+} from "./schemas/get-tasks-by-user-id";
 import { CreateTaskUseCase } from "./use-cases/create-task";
 import { DeleteTaskUseCase } from "./use-cases/delete-task";
 import { GetTaskById } from "./use-cases/get-task-by-id";
@@ -38,6 +41,9 @@ import { GetTasksByUserId } from "./use-cases/get-tasks-by-user-id";
 const createTaskSchemaForSwagger = zodToOpenAPI(createTaskSchema);
 const getTasksByIdResponseSchemaForSwagger = zodToOpenAPI(
   getTasksByIdResponseSchema
+);
+const getTasksByUserIdResponseSchemaForSwagger = zodToOpenAPI(
+  getTasksByUserIdResponseSchema
 );
 
 @Controller("/tasks")
@@ -118,6 +124,17 @@ export class TasksController {
   }
 
   @Get("/user/:userId")
+  @ApiParam({
+    name: "userId",
+    schema: {
+      type: "string",
+      description: "User id"
+    }
+  })
+  @ApiResponse({
+    status: 200,
+    schema: getTasksByUserIdResponseSchemaForSwagger
+  })
   async getByUserId(@Param() { userId }: GetTasksByUserIdDTO) {
     const tasks = await this.getTasksByUserId.execute({
       userId
