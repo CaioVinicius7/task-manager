@@ -5,6 +5,8 @@ import { Test } from "@nestjs/testing";
 
 import { DatabaseModule } from "@infra/database/database.module";
 import { AuthenticationModule } from "@modules/authentication/authentication.module";
+import { PrismaUsersRepository } from "@modules/users/repositories/prisma/users.prisma.repository";
+import { UsersRepository } from "@modules/users/repositories/users.repository";
 import { createAndAuthNewUser } from "@test/helpers/create-and-auth-new-user";
 
 import { PrismaTasksUsersRepository } from "../repositories/prisma/tasks-users.prisma.repository";
@@ -12,10 +14,12 @@ import { PrismaTasksRepository } from "../repositories/prisma/tasks.prisma.repos
 import { TasksUsersRepository } from "../repositories/tasks-users.repository";
 import { TasksRepository } from "../repositories/tasks.repository";
 import { TasksController } from "../tasks.controller";
+import { AssignTaskToUserUseCase } from "../use-cases/assign-task-to-user";
 import { CreateTaskUseCase } from "../use-cases/create-task";
 import { DeleteTaskUseCase } from "../use-cases/delete-task";
 import { GetTaskByIdUseCase } from "../use-cases/get-task-by-id";
 import { GetTasksByUserIdUseCase } from "../use-cases/get-tasks-by-user-id";
+import { UnassignTaskFromUserUseCase } from "../use-cases/unassign-task-from-user";
 import { UpdateTaskUseCase } from "../use-cases/update-task";
 
 describe("[GET] /tasks/user/:userId", () => {
@@ -31,6 +35,8 @@ describe("[GET] /tasks/user/:userId", () => {
         GetTasksByUserIdUseCase,
         GetTaskByIdUseCase,
         UpdateTaskUseCase,
+        AssignTaskToUserUseCase,
+        UnassignTaskFromUserUseCase,
         {
           provide: TasksRepository,
           useClass: PrismaTasksRepository
@@ -38,6 +44,10 @@ describe("[GET] /tasks/user/:userId", () => {
         {
           provide: TasksUsersRepository,
           useClass: PrismaTasksUsersRepository
+        },
+        {
+          provide: UsersRepository,
+          useClass: PrismaUsersRepository
         }
       ]
     }).compile();

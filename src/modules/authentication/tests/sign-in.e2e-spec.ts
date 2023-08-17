@@ -7,7 +7,7 @@ import { Test } from "@nestjs/testing";
 import { DatabaseModule } from "@infra/database/database.module";
 import { PrismaUsersRepository } from "@modules/users/repositories/prisma/users.prisma.repository";
 import { UsersRepository } from "@modules/users/repositories/users.repository";
-import { UserModule } from "@modules/users/users.module";
+import { UsersModule } from "@modules/users/users.module";
 
 import { AuthenticationController } from "../authentication.controller";
 import { SignInUseCase } from "../use-cases/sing-in";
@@ -26,12 +26,11 @@ describe("[POST] /sign-in", () => {
           }
         }),
         DatabaseModule,
-        UserModule
+        UsersModule
       ],
       controllers: [AuthenticationController],
       providers: [
         SignInUseCase,
-
         {
           provide: UsersRepository,
           useClass: PrismaUsersRepository
