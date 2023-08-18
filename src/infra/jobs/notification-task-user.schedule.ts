@@ -1,5 +1,5 @@
 import { Injectable, Inject } from "@nestjs/common";
-import { ClientProxy } from "@nestjs/microservices";
+import { ClientKafka } from "@nestjs/microservices";
 import { Cron, CronExpression } from "@nestjs/schedule";
 
 import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
@@ -7,7 +7,7 @@ import { TasksRepository } from "@modules/tasks/repositories/tasks.repository";
 @Injectable()
 export class NotificationTaskUserSchedule {
   constructor(
-    @Inject("NOTIFICATION") private readonly notificationClient: ClientProxy,
+    @Inject("NOTIFICATION") private readonly notificationClient: ClientKafka,
     private readonly tasksRepository: TasksRepository
   ) {}
 
@@ -16,7 +16,7 @@ export class NotificationTaskUserSchedule {
     const allTasks = await this.tasksRepository.findAllTasksStartInTheDay();
 
     allTasks.forEach((task) => {
-      this.notificationClient.emit("task_notification", task);
+      this.notificationClient.emit("tp_task_notification", task);
     });
   }
 }
