@@ -17,6 +17,15 @@ import { NotificationTaskUserSchedule } from "./notification-task-user.schedule"
         options: {
           client: {
             brokers: ["127.0.0.1:9092"]
+          },
+          consumer: {
+            groupId: "gp_app_task_manager"
+          },
+          producer: {
+            allowAutoTopicCreation: false,
+            retry: {
+              maxRetryTime: 3
+            }
           }
         }
       }
